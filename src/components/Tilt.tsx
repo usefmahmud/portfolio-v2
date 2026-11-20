@@ -1,5 +1,6 @@
-import { motion, useMotionValue, useReducedMotion, useSpring } from 'motion/react'
+import { useCallback, useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
+import { prefersReducedMotion } from '../lib/motion/timing'
 
 export type TiltProps = {
   children: ReactNode
@@ -11,46 +12,75 @@ export type TiltProps = {
 /**
  * Pointer tilt for buttons and panels.
  *
- * Rotation is driven by Motion values and springs (never by React state), so
- * the card keeps 60fps while the pointer moves and snaps back with a little
- * weight on leave. Touch and reduced-motion both get a static element.
+ * No animation library: the pointer sets a target rotation, one rAF loop lerps
+ * towards it and stops when it arrives, so the element costs nothing while the
+ * pointer is still. Reduced motion and touch get a static element.
  */
 export default function Tilt({ children, className, max = 6 }: TiltProps) {
-  const reduceMotion = useReducedMotion()
-  const rotateX = useMotionValue(0)
-  const rotateY = useMotionValue(0)
-  const springX = useSpring(rotateX, { stiffness: 220, damping: 18, mass: 0.35 })
-  const springY = useSpring(rotateY, { stiffness: 220, damping: 18, mass: 0.35 })
+  const ref = useRef<HTMLDivElement>(null)
+  const target = useRef({ x: 0, y: 0 })
+  const current = useRef({ x: 0, y: 0 })
+  const frame = useRef<number | null>(null)
+
+  const step = useCallback(() => {
+    const element = ref.current
+    if (!element) {
+      return
+    }
+
+    current.current.x += (target.current.x - current.current.x) * 0.14
+    current.current.y += (target.current.y - current.current.y) * 0.14
+
+    element.style.transform = `perspective(900px) rotateX(${current.current.x.toFixed(2)}deg) rotateY(${current.current.y.toFixed(2)}deg)`
+
+    const settled =
+      Math.abs(target.current.x - current.current.x) < 0.02 &&
+      Math.abs(target.current.y - current.current.y) < 0.02
+
+    frame.current = settled ? null : requestAnimationFrame(step)
+  }, [])
+
+  const kick = useCallback(() => {
+    if (frame.current === null) {
+      frame.current = requestAnimationFrame(step)
+    }
+  }, [step])
+
+  useEffect(() => {
+    return () => {
+      if (frame.current !== null) {
+        cancelAnimationFrame(frame.current)
+      }
+    }
+  }, [])
 
   function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
-    if (reduceMotion || event.pointerType !== 'mouse') {
+    if (event.pointerType !== 'mouse' || prefersReducedMotion()) {
       return
     }
     const rect = event.currentTarget.getBoundingClientRect()
     const px = (event.clientX - rect.left) / rect.width - 0.5
     const py = (event.clientY - rect.top) / rect.height - 0.5
-    rotateY.set(px * max * 2)
-    rotateX.set(-py * max * 2)
+    target.current.y = px * max * 2
+    target.current.x = -py * max * 2
+    kick()
   }
 
   function reset() {
-    rotateX.set(0)
-    rotateY.set(0)
+    target.current.x = 0
+    target.current.y = 0
+    kick()
   }
 
   return (
-    <motion.div
+    <div
+      ref={ref}
       className={className}
       onPointerMove={handlePointerMove}
       onPointerLeave={reset}
       onPointerCancel={reset}
-      style={
-        reduceMotion
-          ? undefined
-          : { rotateX: springX, rotateY: springY, transformPerspective: 900 }
-      }
     >
       {children}
-    </motion.div>
+    </div>
   )
 }

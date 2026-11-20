@@ -1,4 +1,3 @@
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import { applyTheme, readStoredTheme, storeTheme } from '../lib/theme'
 import type { ThemeMode } from '../lib/theme'
@@ -29,7 +28,6 @@ const MODE_ICON = {
  */
 export default function ThemeToggle() {
   const [mode, setMode] = useState<ThemeMode>('auto')
-  const reduceMotion = useReducedMotion()
 
   useEffect(() => {
     const stored = readStoredTheme()
@@ -67,18 +65,10 @@ export default function ThemeToggle() {
       title={label}
       className="inline-flex size-10 items-center justify-center rounded-full border border-line text-ink-muted transition-colors duration-200 hover:border-line-control hover:text-ink"
     >
-      <AnimatePresence initial={false} mode="wait">
-        <motion.span
-          key={mode}
-          initial={{ opacity: 0, rotate: reduceMotion ? 0 : -25, scale: 0.8 }}
-          animate={{ opacity: 1, rotate: 0, scale: 1 }}
-          exit={{ opacity: 0, rotate: reduceMotion ? 0 : 25, scale: 0.8 }}
-          transition={{ duration: reduceMotion ? 0 : 0.18, ease: 'easeOut' }}
-          className="inline-flex"
-        >
-          <Icon className="size-4" />
-        </motion.span>
-      </AnimatePresence>
+      {/* Keyed so the icon remounts and replays the 180ms swap. */}
+      <span key={mode} className="icon-in inline-flex">
+        <Icon className="size-4" />
+      </span>
     </button>
   )
 }

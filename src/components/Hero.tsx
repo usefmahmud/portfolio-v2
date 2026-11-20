@@ -99,7 +99,10 @@ export default function Hero() {
         <aside className="lg:col-span-4 lg:border-l lg:border-line lg:pl-8">
           <p className="t-meta m-0">Currently</p>
           <p className="mt-3 mb-0 flex items-start gap-2.5 text-[0.95rem] leading-snug text-ink">
-            <span aria-hidden="true" className="status-dot mt-[0.45rem] shrink-0" />
+            <span
+              aria-hidden="true"
+              className="status-dot mt-[0.45rem] shrink-0"
+            />
             {site.availability}
           </p>
 
@@ -141,7 +144,7 @@ export default function Hero() {
         </p>
         <a
           href="#work"
-          className="t-meta group inline-flex items-center gap-2 text-ink-faint no-underline transition-colors duration-200 hover:text-ink"
+          className="t-meta group inline-flex min-h-6 items-center gap-2 text-ink-faint no-underline transition-colors duration-200 hover:text-ink"
         >
           Selected work
           <ArrowDownIcon className="size-4 transition-transform duration-300 group-hover:translate-y-0.5" />

@@ -63,3 +63,15 @@ are snapshots, not live lookups. Update them by hand when they drift.
 
 `email` is used by the contact page's `mailto:` link. It is public by design
 (it already appears in commit metadata); swap it for an alias if that changes.
+
+W2 added three more blocks to the same file, so design copy is still data:
+
+| Key        | Shape                                   | Where it renders                                  |
+| ---------- | --------------------------------------- | ------------------------------------------------- |
+| `url`      | absolute origin                         | canonical tags, OG URLs, sitemap, JSON-LD         |
+| `about`    | `{ lede, paragraphs[] }`                | home about teaser (line-by-line reveal), `/about` |
+| `playbook` | `[{ title, body }]`, 4 items reads best | the numbered "How I work" section                 |
+
+`url` is a placeholder until the domain is live — see `docs/SEO.md`.
+`playbook[].title` is short (2–4 words) because it is set in the display serif;
+`body` is one or two sentences and should name a project that proves the claim.

@@ -31,18 +31,21 @@ export function useSmoothScroll() {
       return
     }
 
-    let disposed = false
+    /* Object, not a boolean: TS would otherwise narrow the flag to `false`
+       inside the async closure and the cleanup check would look dead. */
+    const state = { disposed: false }
     let teardown: (() => void) | undefined
 
     void (async () => {
       try {
-        const [{ default: Lenis }, { gsap }, { ScrollTrigger }] = await Promise.all([
-          import('lenis'),
-          import('gsap'),
-          import('gsap/ScrollTrigger'),
-        ])
+        const [{ default: Lenis }, { gsap }, { ScrollTrigger }] =
+          await Promise.all([
+            import('lenis'),
+            import('gsap'),
+            import('gsap/ScrollTrigger'),
+          ])
 
-        if (disposed) {
+        if (state.disposed) {
           return
         }
 
@@ -55,8 +58,10 @@ export function useSmoothScroll() {
           touchMultiplier: 1.5,
           syncTouch: false,
           /* Hash links (the hero's "selected work" cue) scroll smoothly too,
-             instead of jumping past the smooth scroller. */
-          anchors: { offset: -96 },
+             instead of jumping past the smooth scroller. The offset keeps the
+             target clear of the sticky header; `scroll-mt` covers the no-JS,
+             native-scroll case. */
+          anchors: { offset: 0 },
         })
 
         window.__lenis = lenis
@@ -78,7 +83,7 @@ export function useSmoothScroll() {
     })()
 
     return () => {
-      disposed = true
+      state.disposed = true
       teardown?.()
     }
   }, [])

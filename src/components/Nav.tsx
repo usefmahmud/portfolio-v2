@@ -1,5 +1,4 @@
 import { Link } from '@tanstack/react-router'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import { site } from '../content'
 import { CloseIcon, MenuIcon } from './Icons'
@@ -18,13 +17,13 @@ const NAV_ITEMS = [
  * on the element and the later rule in the stylesheet wins, not the active
  * state. The active link also keeps its accent underline drawn.
  */
-const linkBase = 't-meta link-line inline-flex min-h-11 items-center no-underline'
+const linkBase =
+  't-meta link-line inline-flex min-h-11 items-center no-underline'
 const linkActive = 'text-ink [background-size:100%_1px]'
 const linkInactive = 'text-ink-faint hover:text-ink'
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
-  const reduceMotion = useReducedMotion()
 
   useEffect(() => {
     if (!open) {
@@ -45,7 +44,7 @@ export default function Nav() {
         <Link
           to="/"
           aria-label={`${site.name} — home`}
-          className="group flex items-baseline gap-2.5 no-underline"
+          className="group flex min-h-11 items-center gap-2.5 no-underline"
         >
           <span className="font-serif text-[1.3rem] leading-none tracking-[-0.02em] text-ink">
             {site.shortName.toLowerCase()}
@@ -91,41 +90,32 @@ export default function Nav() {
         </div>
       </div>
 
-      <AnimatePresence initial={false}>
-        {open ? (
-          <motion.div
-            id="mobile-nav"
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{
-              duration: reduceMotion ? 0 : 0.2,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="border-t border-line bg-canvas md:hidden"
-          >
-            <ul className="shell m-0 flex list-none flex-col p-0">
-              {NAV_ITEMS.map((item, index) => (
-                <li key={item.to} className="border-b border-line last:border-0">
-                  <Link
-                    to={item.to}
-                    activeOptions={{ exact: item.exact }}
-                    activeProps={{ className: 'text-ink' }}
-                    inactiveProps={{ className: 'text-ink-muted' }}
-                    onClick={() => setOpen(false)}
-                    className="flex items-baseline justify-between py-3 no-underline"
-                  >
-                    <span className="t-heading">{item.label}</span>
-                    <span className="t-num">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      {open ? (
+        <div
+          id="mobile-nav"
+          className="panel-in border-t border-line bg-canvas md:hidden"
+        >
+          <ul className="shell m-0 flex list-none flex-col p-0">
+            {NAV_ITEMS.map((item, index) => (
+              <li key={item.to} className="border-b border-line last:border-0">
+                <Link
+                  to={item.to}
+                  activeOptions={{ exact: item.exact }}
+                  activeProps={{ className: 'text-ink' }}
+                  inactiveProps={{ className: 'text-ink-muted' }}
+                  onClick={() => setOpen(false)}
+                  className="flex items-baseline justify-between py-3 no-underline"
+                >
+                  <span className="t-heading">{item.label}</span>
+                  <span className="t-num">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </header>
   )
 }

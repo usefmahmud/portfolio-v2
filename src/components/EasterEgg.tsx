@@ -95,7 +95,10 @@ export default function EasterEgg() {
 
         <ul className="mt-6 mb-0 list-none p-0">
           {lab.map((project) => (
-            <li key={project.slug} className="border-t border-line last:border-b">
+            <li
+              key={project.slug}
+              className="border-t border-line last:border-b"
+            >
               <a
                 href={project.repo}
                 target="_blank"

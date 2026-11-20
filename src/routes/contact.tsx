@@ -76,11 +76,7 @@ function ContactPage() {
           </a>
 
           <div className="mt-5">
-            <button
-              type="button"
-              onClick={copyEmail}
-              className="btn btn-ghost"
-            >
+            <button type="button" onClick={copyEmail} className="btn btn-ghost">
               Copy address
             </button>
             <p
@@ -106,7 +102,9 @@ function ContactPage() {
                 className="group inline-flex min-h-11 items-center gap-2 text-sm text-ink no-underline"
               >
                 <GitHubIcon className="size-4 text-ink-faint" />
-                <span className="link-line">github.com/{site.github.handle}</span>
+                <span className="link-line">
+                  github.com/{site.github.handle}
+                </span>
                 <ArrowUpRightIcon className="arrow-nudge size-3.5 text-ink-faint" />
               </a>
             </li>
@@ -135,7 +133,10 @@ function ContactPage() {
 
         <div className="lg:col-span-6 lg:col-start-7">
           <Reveal>
-            <form onSubmit={handleSubmit} className="border border-line p-6 sm:p-8">
+            <form
+              onSubmit={handleSubmit}
+              className="border border-line p-6 sm:p-8"
+            >
               <h2 className="t-heading m-0 text-ink">Send a note</h2>
               <p className="t-body mt-2 mb-0 text-[0.92rem]">
                 This form opens your mail client with the message pre-filled —

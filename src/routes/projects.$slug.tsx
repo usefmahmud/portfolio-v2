@@ -59,7 +59,7 @@ function ProjectDetail() {
       </Link>
 
       <article>
-        <header className="mt-6 grid gap-10 border-b border-line pb-12 lg:grid-cols-12">
+        <header className="mt-6 grid gap-10 border-b border-line pb-12 lg:grid-cols-12 lg:gap-x-12">
           <div className="lg:col-span-8">
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
               <span className="t-meta inline-flex items-center gap-2 text-ink">
@@ -77,7 +77,7 @@ function ProjectDetail() {
             <p className="t-lead mt-6 mb-0 max-w-[48ch]">{project.tagline}</p>
           </div>
 
-          <div className="lg:col-span-4 lg:border-l lg:border-line lg:pl-8">
+          <div className="lg:col-span-4 lg:col-start-9">
             <Tilt max={5}>
               <dl className="m-0 border border-line bg-surface">
                 <div className="flex items-baseline justify-between gap-4 border-b border-line px-4 py-3">
@@ -132,7 +132,7 @@ function ProjectDetail() {
               {project.stack.map((tech) => (
                 <li
                   key={tech}
-                  className="border-t border-line py-2 font-mono text-sm text-ink"
+                  className="border-t border-line py-2 font-mono text-sm text-ink last:border-b"
                 >
                   {tech}
                 </li>

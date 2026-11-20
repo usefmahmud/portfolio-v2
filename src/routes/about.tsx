@@ -1,5 +1,11 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { ArrowRightIcon, ArrowUpRightIcon, GitHubIcon, MailIcon } from '../components/Icons'
+import type { ComponentType, SVGProps } from 'react'
+import {
+  ArrowRightIcon,
+  ArrowUpRightIcon,
+  GitHubIcon,
+  MailIcon,
+} from '../components/Icons'
 import Reveal from '../components/motion/Reveal'
 import SplitReveal from '../components/motion/SplitReveal'
 import { projects, site } from '../content'
@@ -25,10 +31,13 @@ const FACT_ROWS = [
   { label: 'Status', value: site.availability },
 ] as const
 
-const LINK_ICONS = {
+const LINK_ICONS: Record<
+  string,
+  ComponentType<SVGProps<SVGSVGElement>> | undefined
+> = {
   GitHub: GitHubIcon,
   Email: MailIcon,
-} as const
+}
 
 function AboutPage() {
   return (
@@ -40,7 +49,7 @@ function AboutPage() {
             {site.shortName.toLowerCase()}, working at the seam
           </SplitReveal>
         </h1>
-        <p className="t-lead mt-7 max-w-[52ch]">{site.about.lede}</p>
+        <p className="t-lead mt-7 max-w-[44ch]">{site.about.lede}</p>
       </header>
 
       <div className="shell mt-14 grid gap-12 border-t border-line pt-12 lg:grid-cols-12 lg:gap-x-12">
@@ -103,8 +112,7 @@ function AboutPage() {
           <h2 className="t-meta mt-10 mb-0">Elsewhere</h2>
           <ul className="mt-3 mb-0 flex list-none flex-col p-0">
             {site.links.map((link) => {
-              const Icon =
-                LINK_ICONS[link.label as keyof typeof LINK_ICONS] ?? null
+              const Icon = LINK_ICONS[link.label]
               return (
                 <li key={link.href}>
                   <a

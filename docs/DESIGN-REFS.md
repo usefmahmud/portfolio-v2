@@ -27,18 +27,29 @@ See the `popular-web-designs` skill (`templates/`) for token-level breakdowns.
 | `resend.md`     | Minimal dark theme, single accent used sparingly            |
 | `x.ai.md`       | Stark monospace minimalism as a viable extreme              |
 
-## Decisions to make in W2
+## Decisions taken in W2
 
-1. **Type pairing** — keep Geist/Geist Mono, or move to a serif display (e.g.
-   Fraunces) for headings while mono stays for metadata.
-2. **Accent** — currently indigo `#4338ca` / `#b4aaff`. Confirm or replace, then
-   re-run the contrast check.
-3. **Project card density** — chips + tagline only, or add a thumbnail/monogram
-   per project.
-4. **Case page** — needs a visual anchor (screenshot, terminal capture, or
-   typographic diagram). No assets exist yet; decide whether to generate them.
-5. **Motion budget** — one signature transition (project card → case page) is
-   worth more than many small fades.
+The system that came out of these is documented in `docs/DESIGN.md`.
+
+1. **Type pairing** — serif display, not a second grotesk. **Instrument Serif**
+   (400 + italic) for display, **Geist** for text, **Geist Mono** for data. All
+   self-hosted as latin subsets. A grotesk-only hero reads as "SaaS landing
+   page"; the serif is what makes the page read as editorial.
+2. **Accent** — indigo replaced by **vermilion `#a63a1e`** (dark: `#e58a63`).
+   It is the only saturated colour on the site and appears as punctuation only.
+   Contrast re-checked: 5.63:1 on paper, 7.25:1 on charcoal.
+3. **Project density** — no cards, no thumbnails. The work is a **typographic
+   index**: number / name in display serif / tagline / year + stack / arrow.
+   Card grids are the "dev portfolio template" tell the reference research
+   warns about, and a thumbnail would be an invented asset.
+4. **Case page** — no screenshots exist, so the anchor is **type plus a spec
+   card** (shipped / status / layer) and a numbered "what is in it" list. When
+   real screenshots exist, they slot in above the overview without changing the
+   grid.
+5. **Motion budget** — one signature moment (per-character hero rise into the
+   accent-italic role line). Card→page transitions are not animated: TanStack
+   Router view transitions were considered and rejected as a second motion
+   system for a marginal gain.
 
 ## Out of scope for W1 (do not regress)
 

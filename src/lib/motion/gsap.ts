@@ -1,3 +1,7 @@
+import type { gsap as Gsap } from 'gsap'
+import type { ScrollTrigger as ScrollTriggerPlugin } from 'gsap/ScrollTrigger'
+import type { SplitText as SplitTextPlugin } from 'gsap/SplitText'
+
 /**
  * GSAP is loaded on demand, never at module scope.
  *
@@ -7,25 +11,22 @@
  * an effect keeps GSAP in its own lazily fetched chunk and out of the server
  * bundle path.
  */
-export type GsapModule = typeof import('gsap')
-export type ScrollTriggerModule = typeof import('gsap/ScrollTrigger')
-export type SplitTextModule = typeof import('gsap/SplitText')
-
 export type MotionBundle = {
-  gsap: GsapModule['gsap']
-  ScrollTrigger: ScrollTriggerModule['ScrollTrigger']
-  SplitText: SplitTextModule['SplitText']
+  gsap: typeof Gsap
+  ScrollTrigger: typeof ScrollTriggerPlugin
+  SplitText: typeof SplitTextPlugin
 }
 
 let bundle: Promise<MotionBundle> | null = null
 
 export function loadMotion(): Promise<MotionBundle> {
   bundle ??= (async () => {
-    const [gsapModule, scrollTriggerModule, splitTextModule] = await Promise.all([
-      import('gsap'),
-      import('gsap/ScrollTrigger'),
-      import('gsap/SplitText'),
-    ])
+    const [gsapModule, scrollTriggerModule, splitTextModule] =
+      await Promise.all([
+        import('gsap'),
+        import('gsap/ScrollTrigger'),
+        import('gsap/SplitText'),
+      ])
 
     const { gsap } = gsapModule
     const { ScrollTrigger } = scrollTriggerModule

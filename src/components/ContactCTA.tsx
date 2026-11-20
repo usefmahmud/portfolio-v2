@@ -8,7 +8,10 @@ export default function ContactCTA({ index = '04' }: { index?: string }) {
       <div className="border-t border-line pt-8">
         <p className="t-meta m-0">({index}) Contact</p>
 
-        <h2 id="contact-heading" className="t-display mt-4 max-w-[14ch] text-ink">
+        <h2
+          id="contact-heading"
+          className="t-display mt-4 max-w-[14ch] text-ink"
+        >
           <SplitReveal mode="chars">Got something to build?</SplitReveal>
         </h2>
 

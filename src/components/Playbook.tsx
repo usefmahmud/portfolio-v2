@@ -11,7 +11,10 @@ import SplitReveal from './motion/SplitReveal'
  */
 export default function Playbook() {
   return (
-    <section aria-labelledby="playbook-heading" className="shell mt-24 sm:mt-32">
+    <section
+      aria-labelledby="playbook-heading"
+      className="shell mt-24 sm:mt-32"
+    >
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-12">
         <div className="lg:col-span-4">
           <p className="t-meta m-0">(02) Playbook</p>
@@ -26,10 +29,7 @@ export default function Playbook() {
 
         <ol className="m-0 grid list-none gap-x-10 p-0 sm:grid-cols-2 lg:col-span-8">
           {site.playbook.map((step, position) => (
-            <li
-              key={step.title}
-              className="border-t border-line py-6"
-            >
+            <li key={step.title} className="border-t border-line py-6">
               <Reveal delay={position * 0.06}>
                 <span className="t-num">
                   {String(position + 1).padStart(2, '0')}

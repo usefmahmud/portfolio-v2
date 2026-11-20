@@ -34,10 +34,17 @@ export default function CursorDot() {
 
         gsap.set(dot, { xPercent: -50, yPercent: -50, opacity: 0 })
 
-        const moveX = gsap.quickTo(dot, 'x', { duration: 0.5, ease: 'power3.out' })
-        const moveY = gsap.quickTo(dot, 'y', { duration: 0.5, ease: 'power3.out' })
+        const moveX = gsap.quickTo(dot, 'x', {
+          duration: 0.5,
+          ease: 'power3.out',
+        })
+        const moveY = gsap.quickTo(dot, 'y', {
+          duration: 0.5,
+          ease: 'power3.out',
+        })
 
-        const INTERACTIVE = 'a, button, [role="button"], input, textarea, select, summary'
+        const INTERACTIVE =
+          'a, button, [role="button"], input, textarea, select, summary'
 
         const onMove = (event: PointerEvent) => {
           gsap.to(dot, { opacity: 1, duration: 0.2, overwrite: 'auto' })

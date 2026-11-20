@@ -48,8 +48,16 @@ export const Route = createRootRoute({
       { name: 'description', content: DESCRIPTION },
       { name: 'author', content: site.name },
       { name: 'color-scheme', content: 'light dark' },
-      { name: 'theme-color', content: '#f1efeb', media: '(prefers-color-scheme: light)' },
-      { name: 'theme-color', content: '#14120f', media: '(prefers-color-scheme: dark)' },
+      {
+        name: 'theme-color',
+        content: '#f1efeb',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        name: 'theme-color',
+        content: '#14120f',
+        media: '(prefers-color-scheme: dark)',
+      },
       { name: 'robots', content: 'index, follow' },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: site.name },
@@ -68,7 +76,6 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
-      { rel: 'canonical', href: site.url },
       { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
       { rel: 'manifest', href: '/manifest.webmanifest' },
       {
@@ -98,7 +105,9 @@ export const Route = createRootRoute({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const pathname = useRouterState({ select: (state) => state.location.pathname })
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  })
 
   useSmoothScroll()
 

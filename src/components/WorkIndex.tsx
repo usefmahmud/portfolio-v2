@@ -32,7 +32,11 @@ export default function WorkIndex({
   showAll = true,
 }: WorkIndexProps) {
   return (
-    <section id="work" aria-labelledby="work-heading" className="shell mt-24 scroll-mt-28 sm:mt-32">
+    <section
+      id="work"
+      aria-labelledby="work-heading"
+      className="shell mt-24 scroll-mt-28 sm:mt-32"
+    >
       <div className="flex items-end justify-between gap-6">
         <div>
           <p className="t-meta m-0">
@@ -45,7 +49,7 @@ export default function WorkIndex({
         {showAll ? (
           <Link
             to="/projects"
-            className="link-line hidden shrink-0 items-center gap-2 text-sm text-ink-muted no-underline transition-colors duration-200 hover:text-ink sm:inline-flex"
+            className="link-line hidden min-h-6 shrink-0 items-center gap-2 text-sm text-ink-muted no-underline transition-colors duration-200 hover:text-ink sm:inline-flex"
           >
             All {total} projects
             <ArrowUpRightIcon className="arrow-nudge size-4" />

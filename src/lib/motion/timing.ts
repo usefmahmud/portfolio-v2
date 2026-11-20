@@ -29,7 +29,10 @@ export const EASE = {
 } as const
 
 export function prefersReducedMotion(): boolean {
-  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+  if (
+    typeof window === 'undefined' ||
+    typeof window.matchMedia !== 'function'
+  ) {
     return false
   }
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -42,7 +45,10 @@ export function motionAllowed(): boolean {
 
 /** Pointer-driven decoration (cursor follower, tilt) needs a real pointer. */
 export function hasFinePointer(): boolean {
-  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+  if (
+    typeof window === 'undefined' ||
+    typeof window.matchMedia !== 'function'
+  ) {
     return false
   }
   return window.matchMedia('(hover: hover) and (pointer: fine)').matches

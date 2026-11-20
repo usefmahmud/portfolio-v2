@@ -2,25 +2,27 @@
 
 Personal portfolio of **Yousef Abdulaziz** — Frontend Engineer, Cairo.
 
-Built with **TanStack Start** (SSR) + React 19 + TypeScript (strict) + Tailwind CSS v4 + Motion.
-Content lives in `src/content/` and is validated at build time.
+Built with **TanStack Start** (SSR) + React 19 + TypeScript (strict) + Tailwind
+CSS v4, with **GSAP + Lenis** for scroll motion. Content lives in `src/content/`
+and is validated at build time.
 
-> **Status: W1 scaffold.** Structure, routing, typed content and theming are in place.
-> Final visual design and richer motion land in W2 (see `docs/DESIGN-REFS.md`).
-> The current palette and type choices are deliberate placeholders held behind
-> design tokens so W2 only has to touch `src/styles.css`.
+> **Status: W2 design.** The editorial system, scroll motion, theming,
+> accessibility pass and SEO are in place — see `docs/DESIGN.md` for the tokens,
+> the reasoning and the measured numbers, and `docs/DESIGN-REFS.md` for the
+> award-site references the direction came from.
 
 ## Stack
 
-| Layer     | Choice                                                                       |
-| --------- | ---------------------------------------------------------------------------- |
-| Framework | TanStack Start 1.169 (file-based routing, SSR)                               |
-| UI        | React 19                                                                     |
-| Language  | TypeScript 6, `strict` + `noUncheckedIndexedAccess`                          |
-| Styles    | Tailwind CSS v4 via `@tailwindcss/vite`, semantic tokens in `src/styles.css` |
-| Motion    | `motion` (framer-motion successor) — used for interaction, not entrance      |
-| Build     | Vite 8                                                                       |
-| Server    | `server.mjs` (srvx) serving `dist/client` + the Start fetch handler          |
+| Layer     | Choice                                                                         |
+| --------- | ------------------------------------------------------------------------------ |
+| Framework | TanStack Start 1.169 (file-based routing, SSR)                                 |
+| UI        | React 19                                                                       |
+| Language  | TypeScript 6, `strict` + `noUncheckedIndexedAccess`                            |
+| Styles    | Tailwind CSS v4 via `@tailwindcss/vite`, semantic tokens in `src/styles.css`   |
+| Motion    | GSAP 3.15 + ScrollTrigger + SplitText (lazy) · Lenis · CSS for entrances       |
+| Fonts     | Instrument Serif · Geist · Geist Mono — self-hosted, latin subset (96KB total) |
+| Build     | Vite 8                                                                         |
+| Server    | `server.mjs` (srvx) serving `dist/client` + the Start fetch handler            |
 
 ## Getting started
 
@@ -34,7 +36,7 @@ npm run dev        # http://localhost:3000
 | Command             | What it does                                                  |
 | ------------------- | ------------------------------------------------------------- |
 | `npm run dev`       | Dev server with HMR on port 3000                              |
-| `npm run build`     | Production build → `dist/client` + `dist/server`              |
+| `npm run build`     | Generates `sitemap.xml`/`robots.txt`, then builds `dist/`     |
 | `npm run start`     | Serve the built app (`node server.mjs`, `PORT` env respected) |
 | `npm run preview`   | Vite preview of the build                                     |
 | `npm run typecheck` | `tsc --noEmit`                                                |
@@ -46,45 +48,63 @@ It is committed so `npm run typecheck` works on a fresh clone — do not edit it
 
 ## Routes
 
-| Route             | File                            | Contents                                        |
-| ----------------- | ------------------------------- | ----------------------------------------------- |
-| `/`               | `src/routes/index.tsx`          | Hero + selected (featured) work + current focus |
-| `/projects`       | `src/routes/projects.index.tsx` | Full archive, sorted                            |
-| `/projects/$slug` | `src/routes/projects.$slug.tsx` | Case page; 404 for unknown slugs                |
-| `/about`          | `src/routes/about.tsx`          | Bio, fact table, links                          |
-| `/contact`        | `src/routes/contact.tsx`        | Direct links + mail-client form                 |
+| Route             | File                            | Contents                                           |
+| ----------------- | ------------------------------- | -------------------------------------------------- |
+| `/`               | `src/routes/index.tsx`          | Hero · work index · playbook · about · contact CTA |
+| `/projects`       | `src/routes/projects.index.tsx` | Full archive as a typographic index                |
+| `/projects/$slug` | `src/routes/projects.$slug.tsx` | Case page with spec card; 404 for unknown slugs    |
+| `/about`          | `src/routes/about.tsx`          | Editorial bio, playbook, fact table, links         |
+| `/contact`        | `src/routes/contact.tsx`        | Direct links + mail-client form (no server)        |
+| 404               | `__root.tsx`                    | Custom not-found page                              |
 
 ## Structure
 
 ```
 src/
-  components/     Hero · ProjectCard · Nav · Footer · ThemeToggle · Icons
+  components/     Hero · WorkIndex · Playbook · AboutTeaser · ContactCTA
+                  Nav · Footer · ThemeToggle · Tilt · CursorDot · EasterEgg
+  components/motion/  SplitReveal (GSAP SplitText) · Reveal (ScrollTrigger)
   content/        site.json · projects.json · index.ts (types + validation)
+  lib/motion/     timing tokens · lazy GSAP loader · smooth scroll hook
   lib/theme.ts    three-state theme (light / dark / system) + pre-paint script
-  routes/         the five routes above + __root.tsx shell
-  router.tsx      router factory
-  styles.css      design tokens, base layer, component layer
-server.mjs        production server for self-hosting
+  routes/         the routes above + __root.tsx shell
+  styles.css      tokens, base layer, component layer, keyframes
+public/
+  fonts/          4 self-hosted woff2 subsets
+  og.png          1200×630 share card · favicon.svg · manifest.webmanifest
+scripts/
+  gen-sitemap.mjs writes sitemap.xml + robots.txt on prebuild
+  og/template.html source for og.png
 ```
 
 ## Content
 
 Projects and bio copy are data, not markup — see `docs/CONTENT.md`.
 Every field is validated at startup: a typo fails the build instead of rendering
-a blank line.
+a blank line. `site.json` now also holds `url`, the home-page `playbook` steps
+and the `about` paragraphs, so copy edits never touch a component.
 
-## Design notes
+## Design and engineering notes
 
-- Colours are referenced as semantic tokens (`bg-canvas`, `text-ink-muted`,
-  `border-line`) — no raw hex in components.
-- Text tokens meet WCAG AA (4.5:1) in both themes; control borders meet 3:1
-  (`--line-control`). Verified numerically, not by eye.
-- Entrance motion is CSS so the page is readable before hydration; Motion is
-  reserved for hover/menu interaction and honours `prefers-reduced-motion`.
-- `prefers-reduced-motion` disables all animation globally in `src/styles.css`.
+- **One palette, one accent.** Warm paper (`#f1efeb`), near-black ink, a single
+  vermilion accent. All text pairs pass WCAG AA in both themes; the numbers are
+  in `docs/DESIGN.md` and were computed from the hex values, not eyeballed.
+- **One motion engine.** CSS for entrances (the H1 is the LCP element and must
+  paint before hydration), GSAP + ScrollTrigger for scroll storytelling, one
+  rAF loop for the tilt. Motion (framer-motion) was removed in W2: it was 49KB
+  gzip of the entry chunk for four small interactions.
+- **Rendering safety.** GSAP is a dynamic import inside effects — no plugin
+  registration at module scope, so the SSR pass never touches `window`.
+  Nothing below the fold starts hidden in the HTML: no-JS and reduced-motion
+  visitors get the complete page.
+- **`prefers-reduced-motion: reduce`** turns off Lenis, the split reveals, the
+  cursor follower and the tilt (verified: zero split elements, no Lenis
+  instance, all content at full opacity).
+- **SEO**: per-route canonical, Open Graph + Twitter cards, `Person` JSON-LD,
+  generated `sitemap.xml` and `robots.txt` — see `docs/SEO.md`.
 
 ## Deploy
 
 Self-hosted: `npm run build && npm run start` (Node 22.18+).
 Static/Nitro presets are not wired yet — that is a deployment decision, not a
-code one.
+code one. Set `SITE_URL` when building for a real domain.
