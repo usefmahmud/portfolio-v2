@@ -1,0 +1,17 @@
+{
+  "name": "Yousef Abdulaziz — Frontend Engineer",
+  "short_name": "Yousef",
+  "description": "Frontend engineer in Cairo. TypeScript, React and TanStack; interfaces that feel fast.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f1efeb",
+  "theme_color": "#f1efeb",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    }
+  ]
+}

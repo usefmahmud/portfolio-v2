@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { ArrowUpRightIcon, GitHubIcon, MailIcon } from '../components/Icons'
+import Reveal from '../components/motion/Reveal'
+import SplitReveal from '../components/motion/SplitReveal'
 import { site } from '../content'
 
 export const Route = createFileRoute('/contact')({
@@ -9,15 +11,14 @@ export const Route = createFileRoute('/contact')({
       { title: `Contact — ${site.name}` },
       {
         name: 'description',
-        content: `Get in touch with ${site.name}, ${site.role} in ${site.location}.`,
+        content: `Email ${site.name}, ${site.role} in ${site.location}. Replies within a day.`,
       },
+      { property: 'og:url', content: `${site.url}/contact` },
     ],
+    links: [{ rel: 'canonical', href: `${site.url}/contact` }],
   }),
   component: ContactPage,
 })
-
-const inputClass =
-  'mt-2 w-full rounded-xl border border-line-control bg-surface px-3.5 py-3 text-base text-ink outline-none transition-colors duration-200 placeholder:text-ink-faint focus:border-accent'
 
 function ContactPage() {
   const [name, setName] = useState('')
@@ -50,145 +51,140 @@ function ContactPage() {
   }
 
   return (
-    <main id="main-content" className="page-shell pt-16 sm:pt-20">
-      <p className="kicker m-0">Contact</p>
-      <h1 className="mt-4 mb-0 max-w-2xl text-3xl font-semibold tracking-[-0.02em] text-ink sm:text-4xl">
-        {site.availability}
-      </h1>
-      <p className="mt-5 mb-0 max-w-[58ch] text-base leading-relaxed text-ink-muted">
-        The fastest way to reach me is email. Tell me what you are building and
-        what part you want help with.
-      </p>
+    <main id="main-content">
+      <header className="shell pt-16 sm:pt-24">
+        <p className="t-meta m-0">Contact</p>
+        <h1 className="t-display mt-5 max-w-[13ch] text-ink">
+          <SplitReveal mode="chars">Say what you are building</SplitReveal>
+        </h1>
+        <p className="t-lead mt-7 max-w-[48ch]">
+          {site.availability}. Email is the fastest route — tell me the problem
+          and the part you want help with.
+        </p>
+      </header>
 
-      <div className="mt-12 grid gap-12 sm:grid-cols-[1fr_1.1fr] sm:gap-16">
-        <div>
-          <h2 className="kicker m-0">Direct</h2>
-          <ul className="mt-4 mb-0 flex list-none flex-col gap-1 p-0">
-            <li>
-              <a
-                href={`mailto:${site.email}`}
-                className="inline-flex min-h-11 items-center gap-2 text-sm text-ink no-underline transition-colors duration-200 hover:text-accent"
-              >
-                <MailIcon className="size-4 text-ink-faint" />
-                {site.email}
-              </a>
-            </li>
+      <div className="shell mt-14 grid gap-14 border-t border-line pt-12 lg:grid-cols-12 lg:gap-x-12">
+        <div className="lg:col-span-5">
+          <a
+            href={`mailto:${site.email}`}
+            className="group inline-flex items-baseline gap-3 text-ink no-underline"
+          >
+            <span className="link-line text-[clamp(1.1rem,2.2vw,1.5rem)] tracking-[-0.01em]">
+              {site.email}
+            </span>
+            <ArrowUpRightIcon className="arrow-nudge size-5 shrink-0 text-accent" />
+          </a>
+
+          <div className="mt-5">
+            <button
+              type="button"
+              onClick={copyEmail}
+              className="btn btn-ghost"
+            >
+              Copy address
+            </button>
+            <p
+              role="status"
+              aria-live="polite"
+              className="t-meta mt-2 mb-0 min-h-5"
+            >
+              {copyStatus === 'copied'
+                ? 'Copied to clipboard'
+                : copyStatus === 'failed'
+                  ? 'Copy blocked — select the address above'
+                  : ''}
+            </p>
+          </div>
+
+          <h2 className="t-meta mt-12 mb-0">Elsewhere</h2>
+          <ul className="mt-3 mb-0 flex list-none flex-col p-0">
             <li>
               <a
                 href={site.github.url}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex min-h-11 items-center gap-2 text-sm text-ink no-underline transition-colors duration-200 hover:text-accent"
+                className="group inline-flex min-h-11 items-center gap-2 text-sm text-ink no-underline"
               >
                 <GitHubIcon className="size-4 text-ink-faint" />
-                github.com/{site.github.handle}
-                <ArrowUpRightIcon className="size-3.5 text-ink-faint" />
+                <span className="link-line">github.com/{site.github.handle}</span>
+                <ArrowUpRightIcon className="arrow-nudge size-3.5 text-ink-faint" />
+              </a>
+            </li>
+            <li>
+              <a
+                href={`mailto:${site.email}`}
+                className="group inline-flex min-h-11 items-center gap-2 text-sm text-ink no-underline"
+              >
+                <MailIcon className="size-4 text-ink-faint" />
+                <span className="link-line">Email</span>
               </a>
             </li>
           </ul>
 
-          <button
-            type="button"
-            onClick={copyEmail}
-            className="mt-4 inline-flex min-h-11 items-center rounded-full border border-line px-4 text-sm font-medium text-ink-muted transition-colors duration-200 hover:border-line-strong hover:text-ink"
-          >
-            Copy email address
-          </button>
-          <p
-            role="status"
-            aria-live="polite"
-            className="mt-2 mb-0 min-h-5 text-xs text-ink-faint"
-          >
-            {copyStatus === 'copied'
-              ? 'Copied to clipboard.'
-              : copyStatus === 'failed'
-                ? 'Could not copy — please select the address above.'
-                : ''}
-          </p>
-
-          <h2 className="kicker mt-10 mb-0">Elsewhere</h2>
-          <ul className="mt-4 mb-0 flex list-none flex-col gap-1 p-0">
-            {site.links.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  target={link.href.startsWith('http') ? '_blank' : undefined}
-                  rel={
-                    link.href.startsWith('http')
-                      ? 'noreferrer noopener'
-                      : undefined
-                  }
-                  className="inline-flex min-h-11 items-center gap-2 text-sm text-ink-muted no-underline transition-colors duration-200 hover:text-ink"
-                >
-                  {link.label}
-                  <span className="font-mono text-xs text-ink-faint">
-                    {link.handle}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <dl className="mt-12">
+            <div className="flex items-baseline justify-between gap-6 border-t border-line py-3">
+              <dt className="t-meta">Based in</dt>
+              <dd className="m-0 text-[0.92rem] text-ink">{site.location}</dd>
+            </div>
+            <div className="flex items-baseline justify-between gap-6 border-t border-line py-3 last:border-b">
+              <dt className="t-meta">Replies</dt>
+              <dd className="m-0 text-[0.92rem] text-ink">Within a day</dd>
+            </div>
+          </dl>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-2xl border border-line bg-surface p-6 sm:p-8"
-        >
-          <h2 className="m-0 text-base font-semibold text-ink">
-            Send a message
-          </h2>
-          <p className="mt-2 mb-0 text-sm leading-relaxed text-ink-muted">
-            This form opens your mail client with the message pre-filled — no
-            server, no stored drafts.
-          </p>
+        <div className="lg:col-span-6 lg:col-start-7">
+          <Reveal>
+            <form onSubmit={handleSubmit} className="border border-line p-6 sm:p-8">
+              <h2 className="t-heading m-0 text-ink">Send a note</h2>
+              <p className="t-body mt-2 mb-0 text-[0.92rem]">
+                This form opens your mail client with the message pre-filled —
+                no server, no stored drafts.
+              </p>
 
-          <div className="mt-6">
-            <label
-              htmlFor="contact-name"
-              className="text-sm font-medium text-ink"
-            >
-              Your name
-            </label>
-            <input
-              id="contact-name"
-              name="name"
-              type="text"
-              autoComplete="name"
-              required
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              className={inputClass}
-              placeholder="Who is writing"
-            />
-          </div>
+              <div className="mt-8">
+                <label htmlFor="contact-name" className="t-meta">
+                  Your name
+                </label>
+                <input
+                  id="contact-name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  className="field mt-1"
+                  placeholder="Who is writing"
+                />
+              </div>
 
-          <div className="mt-5">
-            <label
-              htmlFor="contact-message"
-              className="text-sm font-medium text-ink"
-            >
-              Message
-            </label>
-            <textarea
-              id="contact-message"
-              name="message"
-              required
-              rows={6}
-              value={message}
-              onChange={(event) => setMessage(event.target.value)}
-              className={`${inputClass} resize-y`}
-              placeholder="What you are working on, and what you need"
-            />
-          </div>
+              <div className="mt-7">
+                <label htmlFor="contact-message" className="t-meta">
+                  Message
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  required
+                  rows={6}
+                  value={message}
+                  onChange={(event) => setMessage(event.target.value)}
+                  className="field mt-1 resize-y"
+                  placeholder="What you are building, and what you need"
+                />
+              </div>
 
-          <button
-            type="submit"
-            disabled={!canSubmit}
-            className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-accent px-6 text-sm font-semibold text-on-accent transition-colors duration-200 hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            Open in mail client
-          </button>
-        </form>
+              <button
+                type="submit"
+                disabled={!canSubmit}
+                className="btn btn-solid mt-8 w-full justify-center disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                Open in mail client
+              </button>
+            </form>
+          </Reveal>
+        </div>
       </div>
     </main>
   )

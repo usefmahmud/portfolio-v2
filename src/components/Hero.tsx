@@ -1,67 +1,151 @@
 import { Link } from '@tanstack/react-router'
+import type { CSSProperties } from 'react'
 import { projects, site } from '../content'
-import { ArrowRightIcon } from './Icons'
-
-const stats = [
-  { value: String(projects.length), label: 'selected projects' },
-  { value: String(site.github.publicRepos), label: 'public repos' },
-  { value: `${site.experienceYears} yrs`, label: 'shipping UI' },
-] as const
+import Clock from './Clock'
+import { ArrowDownIcon, ArrowRightIcon } from './Icons'
+import Tilt from './Tilt'
 
 /**
- * Entrance motion is CSS, not Motion: the animation must run even when the
- * client bundle is slow or blocked, and it keeps the SSR markup fully visible
- * (Motion's `initial` would ship `opacity:0` in the HTML).
- * Motion is reserved for interaction (hover lift, menu) where it belongs.
+ * Splits a word into per-character spans at render time.
+ *
+ * The copy is static, so the split is deterministic: server and client emit
+ * identical markup (no hydration mismatch) and the entrance can be a pure CSS
+ * animation, which means the H1 — the LCP element — animates from the first
+ * frame without waiting for JS.
  */
-export default function Hero() {
+function Chars({
+  text,
+  offset = 0,
+  italicFrom,
+}: {
+  text: string
+  offset?: number
+  /** Index from which this run switches to italic (defaults to none). */
+  italicFrom?: number
+}) {
   return (
-    <section className="page-shell pt-16 pb-4 sm:pt-24">
-      <div className="max-w-3xl">
-        <p className="kicker rise-in m-0">
-          {site.role} — {site.location}
-        </p>
+    <>
+      {Array.from(text).map((char, index) => (
+        <span
+          key={`${char}-${index}`}
+          className={
+            italicFrom !== undefined && index >= italicFrom
+              ? 'hero-char italic'
+              : 'hero-char'
+          }
+          style={{ '--i': index + offset } as CSSProperties}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </>
+  )
+}
 
-        <h1 className="rise-in mt-5 mb-0 text-4xl leading-[1.06] font-semibold tracking-[-0.02em] text-ink sm:text-5xl lg:text-[3.4rem]">
-          {site.headline}
-        </h1>
+export default function Hero() {
+  const repos = site.github.publicRepos
 
-        <p className="rise-in mt-6 mb-0 max-w-[62ch] text-base leading-relaxed text-ink-muted sm:text-lg">
-          {site.intro}
-        </p>
-
-        <div className="rise-in mt-9 flex flex-wrap items-center gap-3">
-          <Link
-            to="/projects"
-            className="inline-flex min-h-12 items-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-on-accent no-underline transition-colors duration-200 hover:bg-accent-hover"
+  return (
+    <section className="shell flex flex-col justify-between pt-[6.5rem] pb-8 sm:pt-[8rem] lg:min-h-[88svh]">
+      <div className="grid gap-y-12 lg:grid-cols-12 lg:gap-x-10">
+        <div className="lg:col-span-8">
+          <div
+            className="hero-fade flex items-center gap-3"
+            style={{ '--d': '60ms' } as CSSProperties}
           >
-            See selected work
-            <ArrowRightIcon className="size-4" />
-          </Link>
-          <Link
-            to="/contact"
-            className="inline-flex min-h-12 items-center rounded-full border border-line-strong px-6 text-sm font-semibold text-ink no-underline transition-colors duration-200 hover:bg-surface-raised"
+            <span className="t-meta">Portfolio / 2026</span>
+            <span aria-hidden="true" className="h-px w-8 bg-line-strong" />
+            <span className="t-meta">{site.location}</span>
+          </div>
+
+          <h1
+            aria-label={`${site.name} — ${site.role.toLowerCase()}`}
+            className="t-display mt-7 text-ink"
           >
-            Get in touch
-          </Link>
+            <span className="hero-line" aria-hidden="true">
+              <Chars text="yousef" />
+            </span>
+            <span className="hero-line" aria-hidden="true">
+              <Chars text="abdulaziz" offset={7} />
+            </span>
+            <span className="hero-line text-accent" aria-hidden="true">
+              <Chars text="frontend engineer" offset={17} italicFrom={9} />
+            </span>
+          </h1>
+
+          <p
+            className="hero-fade t-lead mt-9 max-w-[44ch]"
+            style={{ '--d': '780ms' } as CSSProperties}
+          >
+            {site.headline}
+          </p>
+
+          <div
+            className="hero-fade mt-9 flex flex-wrap items-center gap-3"
+            style={{ '--d': '900ms' } as CSSProperties}
+          >
+            <Tilt className="inline-flex" max={5}>
+              <Link to="/projects" className="btn btn-solid">
+                See the work
+                <ArrowRightIcon className="size-4" />
+              </Link>
+            </Tilt>
+            <Link to="/about" className="btn btn-ghost">
+              Read the playbook
+            </Link>
+          </div>
         </div>
 
-        <dl className="rise-in mt-14 m-0 flex flex-wrap gap-x-10 gap-y-4 border-t border-line pt-6">
-          {stats.map((stat) => (
-            <div key={stat.label} className="flex items-baseline gap-2">
-              <dt className="sr-only">{stat.label}</dt>
-              <dd className="m-0 font-mono text-lg font-medium text-ink">
-                {stat.value}
+        <aside className="lg:col-span-4 lg:border-l lg:border-line lg:pl-8">
+          <p className="t-meta m-0">Currently</p>
+          <p className="mt-3 mb-0 flex items-start gap-2.5 text-[0.95rem] leading-snug text-ink">
+            <span aria-hidden="true" className="status-dot mt-[0.45rem] shrink-0" />
+            {site.availability}
+          </p>
+
+          <dl className="mt-8 mb-0 grid gap-3 border-t border-line pt-5">
+            <div className="flex items-baseline justify-between gap-4">
+              <dt className="t-meta">Cairo</dt>
+              <dd className="m-0 font-mono text-sm text-ink">
+                <Clock />
               </dd>
-              <span
-                aria-hidden="true"
-                className="font-mono text-xs tracking-wide text-ink-faint"
-              >
-                {stat.label}
-              </span>
             </div>
-          ))}
-        </dl>
+            <div className="flex items-baseline justify-between gap-4">
+              <dt className="t-meta">Projects</dt>
+              <dd className="m-0 font-mono text-sm text-ink">
+                {projects.length}
+              </dd>
+            </div>
+            <div className="flex items-baseline justify-between gap-4">
+              <dt className="t-meta">Repos</dt>
+              <dd className="m-0 font-mono text-sm text-ink">{repos}</dd>
+            </div>
+          </dl>
+
+          <a
+            href={`mailto:${site.email}`}
+            className="link-line mt-8 inline-block text-[0.95rem] text-ink no-underline"
+          >
+            {site.email}
+          </a>
+        </aside>
+      </div>
+
+      <div className="mt-16 flex items-end justify-between gap-6 border-t border-line pt-5 lg:mt-10">
+        <p className="t-meta m-0">
+          {site.experienceYears} years shipping UI
+          <span aria-hidden="true" className="mx-2">
+            /
+          </span>
+          {site.role}
+        </p>
+        <a
+          href="#work"
+          className="t-meta group inline-flex items-center gap-2 text-ink-faint no-underline transition-colors duration-200 hover:text-ink"
+        >
+          Selected work
+          <ArrowDownIcon className="size-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+        </a>
       </div>
     </section>
   )

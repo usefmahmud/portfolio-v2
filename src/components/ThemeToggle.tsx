@@ -1,3 +1,4 @@
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import { applyTheme, readStoredTheme, storeTheme } from '../lib/theme'
 import type { ThemeMode } from '../lib/theme'
@@ -21,8 +22,14 @@ const MODE_ICON = {
   dark: MoonIcon,
 } as const
 
+/**
+ * Three-state theme control (light → dark → system), persisted in
+ * localStorage. The pre-paint script in `lib/theme.ts` applies the stored
+ * choice before first paint, so colour never flashes on load.
+ */
 export default function ThemeToggle() {
   const [mode, setMode] = useState<ThemeMode>('auto')
+  const reduceMotion = useReducedMotion()
 
   useEffect(() => {
     const stored = readStoredTheme()
@@ -50,7 +57,7 @@ export default function ThemeToggle() {
   }
 
   const Icon = MODE_ICON[mode]
-  const label = `Theme: ${MODE_LABEL[mode]}. Switch to ${MODE_LABEL[NEXT_MODE[mode]].toLowerCase()} mode.`
+  const label = `Theme: ${MODE_LABEL[mode]}. Switch to ${MODE_LABEL[NEXT_MODE[mode]].toLowerCase()}.`
 
   return (
     <button
@@ -58,10 +65,20 @@ export default function ThemeToggle() {
       onClick={handleToggle}
       aria-label={label}
       title={label}
-      className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line bg-surface px-3 text-sm font-medium text-ink-muted transition-colors duration-200 hover:border-line-strong hover:text-ink"
+      className="inline-flex size-10 items-center justify-center rounded-full border border-line text-ink-muted transition-colors duration-200 hover:border-line-control hover:text-ink"
     >
-      <Icon className="size-4 shrink-0" />
-      <span className="hidden sm:inline">{MODE_LABEL[mode]}</span>
+      <AnimatePresence initial={false} mode="wait">
+        <motion.span
+          key={mode}
+          initial={{ opacity: 0, rotate: reduceMotion ? 0 : -25, scale: 0.8 }}
+          animate={{ opacity: 1, rotate: 0, scale: 1 }}
+          exit={{ opacity: 0, rotate: reduceMotion ? 0 : 25, scale: 0.8 }}
+          transition={{ duration: reduceMotion ? 0 : 0.18, ease: 'easeOut' }}
+          className="inline-flex"
+        >
+          <Icon className="size-4" />
+        </motion.span>
+      </AnimatePresence>
     </button>
   )
 }

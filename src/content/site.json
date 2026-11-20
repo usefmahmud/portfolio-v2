@@ -5,6 +5,7 @@
   "role": "Frontend Engineer",
   "location": "Cairo, Egypt",
   "timezone": "Africa/Cairo",
+  "url": "https://yousefabdulaziz.com",
   "experienceYears": 2,
   "availability": "Open to frontend and full-stack work",
   "headline": "I build interfaces that feel fast, and tooling that gets out of the way.",
@@ -31,5 +32,30 @@
     "Design systems and component architecture",
     "Type-safe data flow end to end",
     "Developer tooling and terminal interfaces"
+  ],
+  "about": {
+    "lede": "Two years of product UI, and a habit of taking the slow step out of a workflow. Most of what I build sits where a type boundary and a screen meet.",
+    "paragraphs": [
+      "Most of my work starts at the interface and works backwards. That usually means a strict type boundary at the edge — validated once, then trusted — and components that own their state instead of borrowing it from three layers up.",
+      "Outside product work I build tools I want to use: a terminal HTTP client, a set of Zod refiners, a search layer over a classical Arabic corpus. The pattern is the same — remove the step that makes you leave the thing you are doing."
+    ]
+  },
+  "playbook": [
+    {
+      "title": "Types at the edge",
+      "body": "Validate once, where data enters: a request, a JSON file, a content edit. Past that boundary the types are honest, so nothing downstream has to defend itself."
+    },
+    {
+      "title": "State next to the change",
+      "body": "A component owns the state it renders. Pushing it three layers up is usually a sign the boundary was drawn in the wrong place."
+    },
+    {
+      "title": "Delete the detour",
+      "body": "curlz exists so an API request does not need a browser tab. siyar-search exists so a citation does not need a page-flip. A tool that removes no step is a toy."
+    },
+    {
+      "title": "Small scoped changes",
+      "body": "One ticket, one reviewable diff, one green build. It is how a crew of agents ships real software here, and it is why the codebase still reads cleanly a year later."
+    }
   ]
 }

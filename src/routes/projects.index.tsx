@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import ProjectCard from '../components/ProjectCard'
+import WorkIndex from '../components/WorkIndex'
 import { projects, projectYearsLabel, site } from '../content'
 
 export const Route = createFileRoute('/projects/')({
@@ -8,33 +8,44 @@ export const Route = createFileRoute('/projects/')({
       { title: `Work — ${site.name}` },
       {
         name: 'description',
-        content: `Selected projects by ${site.name}: developer tooling, chat platforms and AI agent systems.`,
+        content: `The full project index: developer tooling, a chat platform and experiments by ${site.name}.`,
       },
+      { property: 'og:url', content: `${site.url}/projects` },
     ],
+    links: [{ rel: 'canonical', href: `${site.url}/projects` }],
   }),
   component: ProjectsPage,
 })
 
 function ProjectsPage() {
   return (
-    <main id="main-content" className="page-shell pt-16 sm:pt-20">
-      <p className="kicker m-0">Work</p>
-      <h1 className="mt-4 mb-0 max-w-2xl text-3xl font-semibold tracking-[-0.02em] text-ink sm:text-4xl">
-        {projects.length} projects, {projectYearsLabel()}
-      </h1>
-      <p className="mt-5 mb-0 max-w-[60ch] text-base leading-relaxed text-ink-muted">
-        Developer tools, a chat platform and a few experiments where the
-        interface needed something behind it. Each entry lists what I actually
-        built, not just the stack.
-      </p>
+    <main id="main-content">
+      <header className="shell pt-16 sm:pt-24">
+        <p className="t-meta m-0">Work / {projectYearsLabel()}</p>
+        <h1 className="t-display mt-5 max-w-[13ch] text-ink">
+          {projects.length} projects,{' '}
+          <span className="text-accent italic">all shipped</span>
+        </h1>
+        <p className="t-lead mt-7 max-w-[50ch]">
+          Developer tools, a chat platform and a few experiments where the
+          interface needed something behind it. Each entry says what I actually
+          built, not just the stack.
+        </p>
+      </header>
 
-      <ul className="mt-12 grid list-none gap-5 p-0 md:grid-cols-2 xl:grid-cols-3">
-        {projects.map((project) => (
-          <li key={project.slug} className="flex">
-            <ProjectCard project={project} />
-          </li>
-        ))}
-      </ul>
+      <WorkIndex
+        items={projects}
+        total={projects.length}
+        index="01"
+        eyebrow="Archive"
+        title="The full index"
+        showAll={false}
+      />
+
+      <p className="shell t-meta mt-10">
+        {site.github.publicRepos} public repos on GitHub — these are the ones
+        with a story
+      </p>
     </main>
   )
 }

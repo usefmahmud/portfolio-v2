@@ -5,6 +5,7 @@ import {
   ArrowUpRightIcon,
   GitHubIcon,
 } from '../components/Icons'
+import Tilt from '../components/Tilt'
 import { getAdjacentProjects, getProject, site } from '../content'
 
 const STATUS_LABEL = {
@@ -30,6 +31,13 @@ export const Route = createFileRoute('/projects/$slug')({
       meta: [
         { title: `${project.name} — ${site.name}` },
         { name: 'description', content: project.tagline },
+        { property: 'og:title', content: `${project.name} — ${site.name}` },
+        { property: 'og:description', content: project.tagline },
+        { property: 'og:url', content: `${site.url}/projects/${project.slug}` },
+        { property: 'og:type', content: 'article' },
+      ],
+      links: [
+        { rel: 'canonical', href: `${site.url}/projects/${project.slug}` },
       ],
     }
   },
@@ -41,96 +49,108 @@ function ProjectDetail() {
   const { previous, next } = getAdjacentProjects(project.slug)
 
   return (
-    <main id="main-content" className="page-shell pt-12 sm:pt-16">
+    <main id="main-content" className="shell pt-10 sm:pt-14">
       <Link
         to="/projects"
-        className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-ink-muted no-underline transition-colors duration-200 hover:text-ink"
+        className="group inline-flex min-h-11 items-center gap-2 text-sm text-ink-muted no-underline transition-colors duration-200 hover:text-ink"
       >
-        <ArrowLeftIcon className="size-4" />
-        All work
+        <ArrowLeftIcon className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />
+        Work index
       </Link>
 
-      <article className="mt-8 max-w-3xl">
-        <header className="border-b border-line pb-8">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 font-mono text-[0.68rem] tracking-wide text-ink-faint uppercase">
-              <span
-                aria-hidden="true"
-                className="size-1.5 rounded-full bg-accent"
-              />
-              {STATUS_LABEL[project.status]}
-            </span>
-            <span aria-hidden="true" className="text-ink-faint">
-              ·
-            </span>
-            <span className="font-mono text-[0.68rem] tracking-wide text-ink-faint">
-              {project.year}
-            </span>
-            <span aria-hidden="true" className="text-ink-faint">
-              ·
-            </span>
-            <span className="font-mono text-[0.68rem] tracking-wide text-ink-faint">
-              {project.role}
-            </span>
+      <article>
+        <header className="mt-6 grid gap-10 border-b border-line pb-12 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              <span className="t-meta inline-flex items-center gap-2 text-ink">
+                <span aria-hidden="true" className="status-dot" />
+                {STATUS_LABEL[project.status]}
+              </span>
+              <span className="t-meta">{project.year}</span>
+              <span className="t-meta">{project.role}</span>
+            </div>
+
+            <h1 className="t-display mt-6 max-w-[15ch] text-ink">
+              {project.name}
+            </h1>
+
+            <p className="t-lead mt-6 mb-0 max-w-[48ch]">{project.tagline}</p>
           </div>
 
-          <h1 className="mt-4 mb-0 text-3xl font-semibold tracking-[-0.02em] text-ink sm:text-[2.75rem] sm:leading-[1.1]">
-            {project.name}
-          </h1>
-          <p className="mt-4 mb-0 max-w-[58ch] text-lg leading-relaxed text-ink-muted">
-            {project.tagline}
-          </p>
+          <div className="lg:col-span-4 lg:border-l lg:border-line lg:pl-8">
+            <Tilt max={5}>
+              <dl className="m-0 border border-line bg-surface">
+                <div className="flex items-baseline justify-between gap-4 border-b border-line px-4 py-3">
+                  <dt className="t-meta">Shipped</dt>
+                  <dd className="m-0 font-mono text-sm text-ink">
+                    {project.year}
+                  </dd>
+                </div>
+                <div className="flex items-baseline justify-between gap-4 border-b border-line px-4 py-3">
+                  <dt className="t-meta">Status</dt>
+                  <dd className="m-0 font-mono text-sm text-ink">
+                    {STATUS_LABEL[project.status].toLowerCase()}
+                  </dd>
+                </div>
+                <div className="flex items-baseline justify-between gap-4 px-4 py-3">
+                  <dt className="t-meta">Layer</dt>
+                  <dd className="m-0 text-right font-mono text-sm text-ink">
+                    {project.stack[0] ?? '—'}
+                  </dd>
+                </div>
+              </dl>
+            </Tilt>
+          </div>
         </header>
 
-        <div className="grid gap-10 pt-8 sm:grid-cols-[1.6fr_1fr] sm:gap-12">
-          <div>
-            <h2 className="kicker m-0">Overview</h2>
-            <p className="mt-3 mb-0 text-base leading-relaxed text-ink">
-              {project.summary}
-            </p>
+        <div className="grid gap-12 pt-12 lg:grid-cols-12 lg:gap-x-12">
+          <div className="lg:col-span-7">
+            <h2 className="t-meta m-0">Overview</h2>
+            <p className="t-lead mt-4 mb-0 text-ink">{project.summary}</p>
 
-            <h2 className="kicker mt-10 mb-0">What is in it</h2>
-            <ul className="mt-4 mb-0 flex list-none flex-col gap-3 p-0">
-              {project.highlights.map((highlight) => (
+            <h2 className="t-meta mt-12 mb-0">What is in it</h2>
+            <ol className="mt-4 mb-0 grid list-none gap-0 p-0">
+              {project.highlights.map((highlight, position) => (
                 <li
                   key={highlight}
-                  className="flex gap-3 text-sm leading-relaxed text-ink-muted"
+                  className="flex gap-4 border-t border-line py-4 last:border-b"
                 >
-                  <span
-                    aria-hidden="true"
-                    className="mt-2 size-1.5 shrink-0 rounded-full bg-line-strong"
-                  />
-                  {highlight}
+                  <span className="t-num w-6 shrink-0 pt-1">
+                    {String(position + 1).padStart(2, '0')}
+                  </span>
+                  <span className="t-body m-0 max-w-[48ch] text-[0.97rem]">
+                    {highlight}
+                  </span>
                 </li>
               ))}
-            </ul>
+            </ol>
           </div>
 
-          <aside className="sm:border-l sm:border-line sm:pl-8">
-            <h2 className="kicker m-0">Stack</h2>
-            <ul className="mt-3 mb-0 flex list-none flex-wrap gap-1.5 p-0">
+          <aside className="lg:col-span-4 lg:col-start-9">
+            <h2 className="t-meta m-0">Stack</h2>
+            <ul className="mt-2 mb-0 list-none p-0">
               {project.stack.map((tech) => (
                 <li
                   key={tech}
-                  className="rounded-full border border-line bg-surface-raised px-2.5 py-1 font-mono text-[0.68rem] text-ink-muted"
+                  className="border-t border-line py-2 font-mono text-sm text-ink"
                 >
                   {tech}
                 </li>
               ))}
             </ul>
 
-            <h2 className="kicker mt-8 mb-0">Links</h2>
-            <ul className="mt-3 mb-0 flex list-none flex-col gap-1 p-0">
+            <h2 className="t-meta mt-10 mb-0">Links</h2>
+            <ul className="mt-3 mb-0 flex list-none flex-col p-0">
               <li>
                 <a
                   href={project.repo}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="inline-flex min-h-11 items-center gap-2 text-sm text-ink-muted no-underline transition-colors duration-200 hover:text-ink"
+                  className="link-line inline-flex min-h-11 items-center gap-2 text-sm text-ink no-underline"
                 >
-                  <GitHubIcon className="size-4" />
+                  <GitHubIcon className="size-4 text-ink-faint" />
                   Source
-                  <ArrowUpRightIcon className="size-3.5 opacity-60" />
+                  <ArrowUpRightIcon className="arrow-nudge size-3.5" />
                 </a>
               </li>
               {project.homepage ? (
@@ -139,9 +159,9 @@ function ProjectDetail() {
                     href={project.homepage}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex min-h-11 items-center gap-2 text-sm text-ink-muted no-underline transition-colors duration-200 hover:text-ink"
+                    className="link-line inline-flex min-h-11 items-center gap-2 text-sm text-ink no-underline"
                   >
-                    <ArrowUpRightIcon className="size-4" />
+                    <ArrowUpRightIcon className="size-4 text-ink-faint" />
                     Live site
                   </a>
                 </li>
@@ -153,18 +173,20 @@ function ProjectDetail() {
 
       <nav
         aria-label="Project navigation"
-        className="mt-16 grid gap-4 border-t border-line pt-8 sm:grid-cols-2"
+        className="mt-20 grid gap-6 border-t border-line pt-8 sm:grid-cols-2"
       >
         {previous ? (
           <Link
             to="/projects/$slug"
             params={{ slug: previous.slug }}
-            className="group rounded-xl border border-line p-5 no-underline transition-colors duration-200 hover:border-line-strong"
+            className="group no-underline"
           >
-            <span className="kicker">Previous</span>
-            <span className="mt-2 flex items-center gap-2 text-sm font-medium text-ink">
-              <ArrowLeftIcon className="size-4 text-ink-faint" />
-              {previous.name}
+            <span className="t-meta">Previous</span>
+            <span className="mt-2 flex items-baseline gap-3">
+              <ArrowLeftIcon className="size-4 shrink-0 text-ink-faint transition-transform duration-300 group-hover:-translate-x-1" />
+              <span className="t-heading text-ink transition-colors duration-200 group-hover:text-accent">
+                {previous.name}
+              </span>
             </span>
           </Link>
         ) : (
@@ -175,12 +197,14 @@ function ProjectDetail() {
           <Link
             to="/projects/$slug"
             params={{ slug: next.slug }}
-            className="group rounded-xl border border-line p-5 no-underline transition-colors duration-200 hover:border-line-strong sm:text-right"
+            className="group no-underline sm:text-right"
           >
-            <span className="kicker">Next</span>
-            <span className="mt-2 flex items-center gap-2 text-sm font-medium text-ink sm:justify-end">
-              {next.name}
-              <ArrowRightIcon className="size-4 text-ink-faint" />
+            <span className="t-meta">Next</span>
+            <span className="mt-2 flex items-baseline gap-3 sm:justify-end">
+              <span className="t-heading text-ink transition-colors duration-200 group-hover:text-accent">
+                {next.name}
+              </span>
+              <ArrowRightIcon className="size-4 shrink-0 text-ink-faint transition-transform duration-300 group-hover:translate-x-1" />
             </span>
           </Link>
         ) : null}

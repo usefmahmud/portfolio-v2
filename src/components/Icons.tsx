@@ -75,6 +75,14 @@ export function ArrowLeftIcon(props: IconProps) {
   )
 }
 
+export function ArrowDownIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <path d="M12 4v16M6 14l6 6 6-6" />
+    </Icon>
+  )
+}
+
 export function GitHubIcon(props: IconProps) {
   return (
     <svg

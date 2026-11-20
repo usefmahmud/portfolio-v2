@@ -17,9 +17,19 @@ export type Site = {
   location: string
   timezone: string
   experienceYears: number
+  /** Canonical origin, used for canonical tags, sitemap and JSON-LD. */
+  url: string
   availability: string
   headline: string
   intro: string
+  about: {
+    lede: string
+    paragraphs: string[]
+  }
+  playbook: {
+    title: string
+    body: string
+  }[]
   github: {
     handle: string
     url: string
@@ -161,9 +171,12 @@ function parseSite(raw: unknown): Site {
     location: asString(root, 'location', 'site'),
     timezone: asString(root, 'timezone', 'site'),
     experienceYears: asNumber(root, 'experienceYears', 'site'),
+    url: asString(root, 'url', 'site'),
     availability: asString(root, 'availability', 'site'),
     headline: asString(root, 'headline', 'site'),
     intro: asString(root, 'intro', 'site'),
+    about: parseAbout(asRecord(root.about, 'site.about')),
+    playbook: parsePlaybook(root.playbook),
     github: {
       handle: asString(github, 'handle', 'site.github'),
       url: asString(github, 'url', 'site.github'),
@@ -180,6 +193,23 @@ function asRecordArray(value: unknown, path: string) {
     fail(path, 'a non-empty array')
   }
   return value.map((entry, index) => asRecord(entry, `${path}[${index}]`))
+}
+
+function parseAbout(raw: Record<string, unknown>): Site['about'] {
+  return {
+    lede: asString(raw, 'lede', 'site.about'),
+    paragraphs: asStringArray(raw, 'paragraphs', 'site.about'),
+  }
+}
+
+function parsePlaybook(raw: unknown): Site['playbook'] {
+  return asRecordArray(raw, 'site.playbook').map((entry, index) => {
+    const path = `site.playbook[${index}]`
+    return {
+      title: asString(entry, 'title', path),
+      body: asString(entry, 'body', path),
+    }
+  })
 }
 
 function parseProject(raw: unknown, path: string): Project {
