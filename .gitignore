@@ -1,7 +1,16 @@
 node_modules/
 dist/
+dist-ssr/
 .output/
+.nitro/
 .tanstack/
+.wrangler/
+.vinxi/
+.vercel/
+*.local
 .env*
+!.env.example
 .DS_Store
 *.log
+__unconfig*
+todos.json
