@@ -1,0 +1,205 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-line-control: var(--line-control);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+}
+
+/*
+ * W1 tokens: neutral, warm greys with a single indigo accent.
+ * These are placeholders on purpose — the W2 pass replaces the palette and
+ * type scale once the reference research lands. Components read tokens only,
+ * so the swap stays confined to this block.
+ */
+:root {
+  --canvas: #fbfaf8;
+  --surface: #ffffff;
+  --surface-raised: #f4f2ed;
+  --line: #e3dfd6;
+  --line-strong: #cbc5b7;
+  /* Control borders need 3:1 against the surface they sit on (WCAG 1.4.11);
+     --line is decorative only. */
+  --line-control: #96907f;
+  --ink: #17150f;
+  --ink-muted: #5c574b;
+  --ink-faint: #6f6a5c;
+  --accent: #4338ca;
+  --accent-hover: #3730a3;
+  --accent-soft: #ece9fd;
+  --on-accent: #ffffff;
+}
+
+.dark {
+  --canvas: #0b0b0a;
+  --surface: #131312;
+  --surface-raised: #1b1a18;
+  --line: #262523;
+  --line-strong: #3a3835;
+  --line-control: #726d60;
+  --ink: #f4f1e9;
+  --ink-muted: #a8a294;
+  --ink-faint: #8f8a7d;
+  --accent: #b4aaff;
+  --accent-hover: #c9c2ff;
+  --accent-soft: #211f36;
+  --on-accent: #0b0b0a;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-wrap: break-word;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--accent-soft);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Single horizontal rhythm for every page. */
+  .page-shell {
+    width: 100%;
+    max-width: 74rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .page-shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .page-shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 100;
+    border-radius: 0.5rem;
+    background-color: var(--accent);
+    color: var(--on-accent);
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: top 150ms ease-out;
+  }
+
+  .skip-link:focus-visible {
+    top: 1rem;
+  }
+
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* Section/hero entrance. Runs without JS, ends in the visible state. */
+  .rise-in {
+    animation: rise-in 560ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .rise-in:nth-child(2) {
+    animation-delay: 60ms;
+  }
+
+  .rise-in:nth-child(3) {
+    animation-delay: 110ms;
+  }
+
+  .rise-in:nth-child(4) {
+    animation-delay: 160ms;
+  }
+
+  .rise-in:nth-child(5) {
+    animation-delay: 210ms;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-in {
+    animation: none;
+  }
+}
