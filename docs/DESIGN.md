@@ -176,3 +176,8 @@ Findings from rendering the built site — not from reading the code:
    were 18–23px tall → minimum 24px.
 7. **Motion weight**: the entry chunk was 161KB gzip with Motion in it →
    Motion removed, one engine (GSAP + CSS), entry now ~112KB.
+8. **Hero right rail**: "currently / time / counts" read as metadata filler and
+   the first screen showed no work → the rail now leads with the most recent
+   featured project (name in display serif, year, one line, link to the case
+   page), the repo count links to GitHub, and the wordmark lost its duplicated
+   "Cairo, Egypt".
