@@ -1,8 +1,8 @@
 import { Link } from '@tanstack/react-router'
 import type { CSSProperties } from 'react'
-import { projects, site } from '../content'
+import { featuredProjects, site } from '../content'
 import Clock from './Clock'
-import { ArrowDownIcon, ArrowRightIcon } from './Icons'
+import { ArrowDownIcon, ArrowRightIcon, ArrowUpRightIcon } from './Icons'
 import Tilt from './Tilt'
 
 /**
@@ -44,6 +44,8 @@ function Chars({
 
 export default function Hero() {
   const repos = site.github.publicRepos
+  /* Featured projects are already sorted newest-first by the content layer. */
+  const latest = featuredProjects[0]
 
   return (
     <section className="shell flex flex-col justify-between pt-[6.5rem] pb-8 sm:pt-[8rem] lg:min-h-[88svh]">
@@ -106,7 +108,32 @@ export default function Hero() {
             {site.availability}
           </p>
 
-          <dl className="mt-8 mb-0 grid gap-3 border-t border-line pt-5">
+          <div className="mt-8 border-t border-line pt-5">
+            <div className="flex items-baseline justify-between gap-4">
+              <p className="t-meta m-0">Last shipped</p>
+              <span className="t-num">{latest?.year}</span>
+            </div>
+
+            {latest ? (
+              <Link
+                to="/projects/$slug"
+                params={{ slug: latest.slug }}
+                className="group mt-2 block no-underline"
+              >
+                <span className="flex items-baseline justify-between gap-3">
+                  <span className="font-serif text-[1.45rem] leading-none tracking-[-0.01em] text-ink transition-colors duration-200 group-hover:text-accent">
+                    {latest.name}
+                  </span>
+                  <ArrowUpRightIcon className="arrow-nudge size-4 shrink-0 text-accent" />
+                </span>
+                <span className="mt-2 block text-[0.82rem] leading-snug text-ink-faint">
+                  {latest.tagline}
+                </span>
+              </Link>
+            ) : null}
+          </div>
+
+          <dl className="mt-6 mb-0 grid gap-3 border-t border-line pt-5">
             <div className="flex items-baseline justify-between gap-4">
               <dt className="t-meta">Cairo</dt>
               <dd className="m-0 font-mono text-sm text-ink">
@@ -114,14 +141,17 @@ export default function Hero() {
               </dd>
             </div>
             <div className="flex items-baseline justify-between gap-4">
-              <dt className="t-meta">Projects</dt>
-              <dd className="m-0 font-mono text-sm text-ink">
-                {projects.length}
-              </dd>
-            </div>
-            <div className="flex items-baseline justify-between gap-4">
               <dt className="t-meta">Repos</dt>
-              <dd className="m-0 font-mono text-sm text-ink">{repos}</dd>
+              <dd className="m-0 font-mono text-sm">
+                <a
+                  href={site.github.url}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="link-line text-ink no-underline"
+                >
+                  {repos}
+                </a>
+              </dd>
             </div>
           </dl>
 

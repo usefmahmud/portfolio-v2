@@ -50,7 +50,6 @@ export default function Nav() {
             {site.shortName.toLowerCase()}
             <span className="text-accent">.</span>
           </span>
-          <span className="t-meta hidden sm:inline">{site.location}</span>
         </Link>
 
         <nav aria-label="Main" className="hidden md:block">
