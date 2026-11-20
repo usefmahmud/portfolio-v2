@@ -1,0 +1,35 @@
+{
+  "name": "Yousef Abdulaziz",
+  "shortName": "Yousef",
+  "monogram": "YA",
+  "role": "Frontend Engineer",
+  "location": "Cairo, Egypt",
+  "timezone": "Africa/Cairo",
+  "experienceYears": 2,
+  "availability": "Open to frontend and full-stack work",
+  "headline": "I build interfaces that feel fast, and tooling that gets out of the way.",
+  "intro": "Frontend engineer in Cairo with two years of shipping product UI. I work mostly in TypeScript — React and TanStack on the front, Node and Python when the interface needs something behind it.",
+  "github": {
+    "handle": "usefmahmud",
+    "url": "https://github.com/usefmahmud",
+    "publicRepos": 93
+  },
+  "email": "usef.mahmoud@outlook.com",
+  "links": [
+    {
+      "label": "GitHub",
+      "href": "https://github.com/usefmahmud",
+      "handle": "@usefmahmud"
+    },
+    {
+      "label": "Email",
+      "href": "mailto:usef.mahmoud@outlook.com",
+      "handle": "usef.mahmoud@outlook.com"
+    }
+  ],
+  "focus": [
+    "Design systems and component architecture",
+    "Type-safe data flow end to end",
+    "Developer tooling and terminal interfaces"
+  ]
+}

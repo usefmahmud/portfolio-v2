@@ -1,0 +1,130 @@
+{
+  "projects": [
+    {
+      "slug": "curlz",
+      "name": "curlz",
+      "tagline": "A keyboard-driven HTTP client that lives in your terminal.",
+      "summary": "Build, send and save API requests from a TUI instead of a browser tab — the Postman loop without the context switch.",
+      "year": 2026,
+      "role": "Design and implementation",
+      "status": "active",
+      "stack": ["TypeScript", "Node.js", "TUI"],
+      "highlights": [
+        "Compose requests with method, headers and body from the keyboard",
+        "Save requests and replay them on demand",
+        "REST and HTTP work without leaving the shell"
+      ],
+      "repo": "https://github.com/usefmahmud/curlz",
+      "homepage": null,
+      "featured": true
+    },
+    {
+      "slug": "zod-refiners",
+      "name": "zod-refiners",
+      "tagline": "Composable Zod refiners you copy into your own project.",
+      "summary": "A set of isolated, single-purpose refiner functions for Zod. No runtime dependency, no indirection — the code becomes yours the moment you paste it in.",
+      "year": 2026,
+      "role": "Author and maintainer",
+      "status": "maintained",
+      "stack": ["TypeScript", "Zod", "npm"],
+      "highlights": [
+        "Each refiner is standalone and independently testable",
+        "Copy-in distribution keeps you off a version treadmill",
+        "Documented examples for the common validation cases"
+      ],
+      "repo": "https://github.com/usefmahmud/zod-refiners",
+      "homepage": "https://zod-refiners.vercel.app",
+      "featured": true
+    },
+    {
+      "slug": "sitta-chat",
+      "name": "sitta-chat",
+      "tagline": "A chat platform built ticket by ticket by an agent crew.",
+      "summary": "A full chat application where the whole build was driven by AI agents working a ticket queue — architecture, API and UI shipped incrementally, with every decision traceable to a ticket.",
+      "year": 2026,
+      "role": "Architecture and delivery",
+      "status": "active",
+      "stack": ["Python", "FastAPI", "React", "TypeScript"],
+      "highlights": [
+        "Ticket-driven delivery: one scoped change per closed ticket",
+        "Server and client contracts kept in sync through typed schemas",
+        "Built as the proving ground for the agent workflow in warsha"
+      ],
+      "repo": "https://github.com/usefmahmud/sitta-chat",
+      "homepage": null,
+      "featured": true
+    },
+    {
+      "slug": "warsha",
+      "name": "warsha",
+      "tagline": "A crew of AI agents that builds and ships its own tools.",
+      "summary": "The workshop: a multi-agent setup with defined roles, a shared ticket board and a review gate, used to take real projects from brief to merged code.",
+      "year": 2026,
+      "role": "System design",
+      "status": "active",
+      "stack": ["Python", "Agent orchestration", "Git"],
+      "highlights": [
+        "Role-separated agents with explicit ownership boundaries",
+        "Shared ticket board as the single source of truth",
+        "Review and verification gates before anything ships"
+      ],
+      "repo": "https://github.com/usefmahmud/warsha",
+      "homepage": null,
+      "featured": false
+    },
+    {
+      "slug": "tanstack-quote-generator",
+      "name": "tanstack-quote-generator",
+      "tagline": "TanStack Start front end talking to a tiny Express API.",
+      "summary": "A small end-to-end experiment: typed TanStack Start routes on one side, a minimal Express service returning random quotes on the other.",
+      "year": 2026,
+      "role": "Full stack",
+      "status": "maintained",
+      "stack": ["TanStack Start", "TypeScript", "Express"],
+      "highlights": [
+        "Route-level data loading with typed results",
+        "Separate API process to keep the client honest about async states",
+        "Small enough to read in one sitting"
+      ],
+      "repo": "https://github.com/usefmahmud/tanstack-quote-generator",
+      "homepage": null,
+      "featured": false
+    },
+    {
+      "slug": "siyar-search",
+      "name": "siyar-search",
+      "tagline": "Search Siyar A'lam al-Nubala by wording or by meaning.",
+      "summary": "A search layer over a large classical Arabic biographical corpus: give it a phrase or a concept and it returns the volume and page where the passage sits.",
+      "year": 2026,
+      "role": "Design and implementation",
+      "status": "active",
+      "stack": ["TypeScript", "Search", "Arabic NLP"],
+      "highlights": [
+        "Exact-wording and meaning-based lookup over the same corpus",
+        "Every result resolves to a volume and page reference",
+        "Interface built for long research sessions, not one-off lookups"
+      ],
+      "repo": "https://github.com/usefmahmud/siyar-search",
+      "homepage": null,
+      "featured": false
+    },
+    {
+      "slug": "college",
+      "name": "college",
+      "tagline": "Lecture notes, flashcards and quizzes generated from course material.",
+      "summary": "A study system that turns university course material into notes, flashcards, quizzes and summaries, packaged as a reusable skill rather than a one-off script.",
+      "year": 2026,
+      "role": "Creator",
+      "status": "maintained",
+      "stack": ["AI workflow", "Markdown"],
+      "highlights": [
+        "Same source material produces notes, cards, quizzes and summaries",
+        "Packaged as a reusable skill, not a throwaway script",
+        "Built around how revision actually happens, not how syllabi are written"
+      ],
+      "repo": "https://github.com/usefmahmud/college",
+      "homepage": null,
+      "featured": false
+    }
+  ]
+}
