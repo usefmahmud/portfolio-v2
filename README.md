@@ -86,7 +86,7 @@ and the `about` paragraphs, so copy edits never touch a component.
 
 ## Design and engineering notes
 
-- **One palette, one accent.** Cool mineral paper (`#dfe3dc`), graphite ink, a
+- **One palette, one accent.** Cool blueprint paper (`#dbe3e4`), graphite ink, a
   single vermilion accent. All text pairs pass WCAG AA in both themes; the
   numbers are in `docs/DESIGN.md` and were computed from the hex values, not
   eyeballed.

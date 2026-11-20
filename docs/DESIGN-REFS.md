@@ -40,7 +40,7 @@ The system that came out of these is documented in `docs/DESIGN.md`.
    page"; the serif is what makes the page read as editorial.
 2. **Accent** — indigo replaced by **vermilion** (`#a83313`, dark: `#ef8b5f`).
    It is the only saturated colour on the site and appears as punctuation only.
-   Contrast re-checked: 5.13:1 on paper, 7.54:1 on graphite.
+   Contrast re-checked: 5.12:1 on paper, 7.60:1 on graphite.
 3. **Project density** — no cards, no thumbnails. The work is a **typographic
    index**: number / name in display serif / tagline / year + stack / arrow.
    Card grids are the "dev portfolio template" tell the reference research

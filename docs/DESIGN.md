@@ -10,7 +10,7 @@ the system that came out of it.
 
 ## 1. Direction
 
-One sentence: **a drafting sheet that happens to scroll** — cool mineral paper,
+One sentence: **a drafting sheet that happens to scroll** — cool blueprint paper,
 graphite ink, a single markup vermilion used like a proof-mark, a didone for
 scale, a grotesk for reading and for every label.
 
@@ -26,7 +26,7 @@ engine.
 
 ## 2. Colour
 
-The ground is a **cool, faintly green-grey technical paper** (`#dfe3dc`), not the
+The ground is a **cool, faintly cyan-grey drafting paper** (`#dbe3e4`), not the
 warm cream that reads as the "tasteful" default. Text is graphite, not pure
 black — pure black on paper looks like a terminal capture. The one saturated
 colour is a **markup vermilion** held over from W2: warm accent on a cool ground
@@ -36,30 +36,30 @@ hover, link underlines — never a large fill.
 
 | Token              | Light     | Dark      | Role                        |
 | ------------------ | --------- | --------- | --------------------------- |
-| `--canvas`         | `#dfe3dc` | `#101413` | page paper / cool graphite  |
-| `--surface`        | `#e9ece6` | `#171c1b` | inset panels (spec cards)   |
-| `--surface-raised` | `#d1d6cf` | `#1f2523` | hover fills                 |
-| `--line`           | `#c2c8c0` | `#2a3230` | decorative hairlines        |
-| `--line-strong`    | `#a6aea4` | `#3e4845` | section rules               |
-| `--line-control`   | `#69726a` | `#6c7873` | control borders (needs 3:1) |
-| `--ink`            | `#14181a` | `#e4e9e4` | body and display text       |
-| `--ink-muted`      | `#454e4a` | `#9ea7a1` | secondary copy              |
-| `--ink-faint`      | `#545e59` | `#8b958f` | metadata only               |
+| `--canvas`         | `#dbe3e4` | `#0e1315` | page paper / cool graphite  |
+| `--surface`        | `#e8eef0` | `#151b1d` | inset panels (spec cards)   |
+| `--surface-raised` | `#cdd7d9` | `#1d2426` | hover fills                 |
+| `--line`           | `#bfc9cb` | `#283033` | decorative hairlines        |
+| `--line-strong`    | `#a2adb0` | `#3c4548` | section rules               |
+| `--line-control`   | `#626e71` | `#68747a` | control borders (needs 3:1) |
+| `--ink`            | `#11181a` | `#e2e8e9` | body and display text       |
+| `--ink-muted`      | `#3f4a4d` | `#98a3a6` | secondary copy              |
+| `--ink-faint`      | `#4e595c` | `#859195` | metadata only               |
 | `--accent`         | `#a83313` | `#ef8b5f` | the single accent           |
 | `--accent-hover`   | `#8a2609` | `#f7a67f` | accent on hover             |
-| `--accent-soft`    | `#e9dad2` | `#2b201a` | accent tint                 |
-| `--on-accent`      | `#f3f5f2` | `#101413` | text on solid accent        |
+| `--accent-soft`    | `#e9d9d3` | `#2a211c` | accent tint                 |
+| `--on-accent`      | `#eef2f3` | `#0e1315` | text on solid accent        |
 
 Measured contrast (WCAG 2.1, sRGB, computed from the hex values above):
 
 | Pair                    | Light | Dark  |
 | ----------------------- | ----- | ----- |
-| ink / canvas            | 13.75 | 15.09 |
-| ink-muted / canvas      | 6.62  | 7.51  |
-| ink-faint / canvas      | 5.18  | 6.00  |
-| accent / canvas         | 5.13  | 7.54  |
-| on-accent / accent      | 6.08  | 7.54  |
-| control border / canvas | 3.83  | 4.04  |
+| ink / canvas            | 13.78 | 15.10 |
+| ink-muted / canvas      | 7.01  | 7.24  |
+| ink-faint / canvas      | 5.54  | 5.77  |
+| accent / canvas         | 5.12  | 7.60  |
+| on-accent / accent      | 5.92  | 7.60  |
+| control border / canvas | 4.04  | 3.89  |
 
 Every text pair clears AA (4.5:1) and control borders clear 1.4.11 (3:1) in both
 themes — re-measured in the browser after the palette change, on all five
@@ -222,7 +222,7 @@ W2:
 W3 (against the Impeccable standard, verified with the detector on the built
 site, zero findings on all six routes):
 
-9. **Palette**: cream `#f1efeb` → cool mineral paper `#dfe3dc`, dark theme
+9. **Palette**: cream `#f1efeb` → cool blueprint paper `#dbe3e4`, dark theme
    recomposed on cool graphite. Contrast re-measured in the browser.
 10. **Type**: the over-used display serif and the over-used text family replaced
     with Bodoni Moda + Familjen Grotesk; the mono family removed and its roles

@@ -92,56 +92,56 @@
 }
 
 /*
- * Palette: "mineral paper and markup ink".
+ * Palette: "blueprint paper and markup ink".
  *
- * The ground is a cool, faintly green-grey technical paper (#DFE3DC) instead of
- * the warm cream that every AI-built portfolio reaches for: it reads as a
- * drafting sheet rather than a cosmetic "tasteful" surface. Text is graphite,
- * not pure black — pure black on paper looks like a terminal capture. The one
- * saturated colour is a markup vermilion reserved for punctuation: the role
- * line, the active nav rule, the status mark, row hairlines, link underlines.
- * Warm accent on a cool ground is the tension that makes the page feel authored.
+ * The ground is a cool, faintly cyan-grey paper (#DBE3E4) instead of the warm
+ * cream that every AI-built portfolio reaches for: it reads as a drafting sheet
+ * rather than a cosmetic "tasteful" surface. Text is graphite, not pure black —
+ * pure black on paper looks like a terminal capture. The one saturated colour is
+ * a markup vermilion reserved for punctuation: the role line, the active nav
+ * rule, the status mark, row hairlines, link underlines. Warm accent on a cool
+ * ground is the tension that makes the page feel authored.
  *
  * Contrast measured (WCAG 2.1, sRGB, computed from these hex values):
- *   light: ink/canvas 13.75 · ink-muted/canvas 6.62 · ink-faint/canvas 5.18
- *          accent/canvas 5.13 · on-accent/accent 6.08 · control border 3.83
- *   dark : ink/canvas 15.09 · ink-muted/canvas 7.51 · ink-faint/canvas 6.00
- *          accent/canvas 7.54 · on-accent/accent 7.54 · control border 4.04
+ *   light: ink/canvas 13.78 · ink-muted/canvas 7.01 · ink-faint/canvas 5.54
+ *          accent/canvas 5.12 · on-accent/accent 5.92 · control border 4.04
+ *   dark : ink/canvas 15.10 · ink-muted/canvas 7.24 · ink-faint/canvas 5.77
+ *          accent/canvas 7.60 · on-accent/accent 7.60 · control border 3.89
  * Every text pair clears AA 4.5:1; control borders clear 1.4.11 (3:1). The dark
  * theme is composed on its own cool graphite rather than inverted from light.
  */
 :root {
-  --canvas: #dfe3dc;
-  --surface: #e9ece6;
-  --surface-raised: #d1d6cf;
-  --line: #c2c8c0;
-  --line-strong: #a6aea4;
+  --canvas: #dbe3e4;
+  --surface: #e8eef0;
+  --surface-raised: #cdd7d9;
+  --line: #bfc9cb;
+  --line-strong: #a2adb0;
   /* Control borders need 3:1 against the surface they sit on (WCAG 1.4.11);
      --line is decorative only. */
-  --line-control: #69726a;
-  --ink: #14181a;
-  --ink-muted: #454e4a;
-  --ink-faint: #545e59;
+  --line-control: #626e71;
+  --ink: #11181a;
+  --ink-muted: #3f4a4d;
+  --ink-faint: #4e595c;
   --accent: #a83313;
   --accent-hover: #8a2609;
-  --accent-soft: #e9dad2;
-  --on-accent: #f3f5f2;
+  --accent-soft: #e9d9d3;
+  --on-accent: #eef2f3;
 }
 
 .dark {
-  --canvas: #101413;
-  --surface: #171c1b;
-  --surface-raised: #1f2523;
-  --line: #2a3230;
-  --line-strong: #3e4845;
-  --line-control: #6c7873;
-  --ink: #e4e9e4;
-  --ink-muted: #9ea7a1;
-  --ink-faint: #8b958f;
+  --canvas: #0e1315;
+  --surface: #151b1d;
+  --surface-raised: #1d2426;
+  --line: #283033;
+  --line-strong: #3c4548;
+  --line-control: #68747a;
+  --ink: #e2e8e9;
+  --ink-muted: #98a3a6;
+  --ink-faint: #859195;
   --accent: #ef8b5f;
   --accent-hover: #f7a67f;
-  --accent-soft: #2b201a;
-  --on-accent: #101413;
+  --accent-soft: #2a211c;
+  --on-accent: #0e1315;
 }
 
 @layer base {
