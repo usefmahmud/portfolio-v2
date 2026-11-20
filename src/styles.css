@@ -11,9 +11,9 @@
 /* -------------------------------------------------------------------------- */
 
 @font-face {
-  font-family: 'Geist';
-  src: url('/fonts/geist-normal.woff2') format('woff2');
-  font-weight: 300 700;
+  font-family: 'Familjen Grotesk';
+  src: url('/fonts/familjen-grotesk-latin.woff2') format('woff2');
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
   unicode-range:
@@ -23,9 +23,28 @@
 }
 
 @font-face {
-  font-family: 'Geist Mono';
-  src: url('/fonts/geist-mono-normal.woff2') format('woff2');
-  font-weight: 400 500;
+  font-family: 'Familjen Grotesk';
+  src: url('/fonts/familjen-grotesk-italic-latin.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+/*
+ * Bodoni Moda: a modern didone with a true italic. Chosen over the display
+ * serif this site used to load because that face has become the default of
+ * every AI-built portfolio; this one carries engraved high-contrast detail
+ * that only reads at scale, which is exactly how the site uses it.
+ * One variable file per style covers every weight used here.
+ */
+@font-face {
+  font-family: 'Bodoni Moda';
+  src: url('/fonts/bodoni-moda-latin.woff2') format('woff2');
+  font-weight: 400 900;
   font-style: normal;
   font-display: swap;
   unicode-range:
@@ -35,21 +54,9 @@
 }
 
 @font-face {
-  font-family: 'Instrument Serif';
-  src: url('/fonts/instrument-serif-normal.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  unicode-range:
-    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
-    U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: 'Instrument Serif';
-  src: url('/fonts/instrument-serif-italic.woff2') format('woff2');
-  font-weight: 400;
+  font-family: 'Bodoni Moda';
+  src: url('/fonts/bodoni-moda-italic-latin.woff2') format('woff2');
+  font-weight: 400 900;
   font-style: italic;
   font-display: swap;
   unicode-range:
@@ -59,9 +66,11 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-serif: 'Instrument Serif', ui-serif, Georgia, 'Times New Roman', serif;
-  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: 'Familjen Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: 'Bodoni Moda', ui-serif, Georgia, 'Times New Roman', serif;
+  /* No mono family ships: labels and figures are set in the grotesk with
+     tabular figures. Only the <kbd> keycap borrows the system monospace. */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --color-canvas: var(--canvas);
   --color-surface: var(--surface);
@@ -83,52 +92,56 @@
 }
 
 /*
- * W2 palette: warm paper, near-black ink, one accent.
+ * Palette: "mineral paper and markup ink".
  *
- * Light: paper #F1EFEB (the warm-neutral the award refs share), ink #252526 —
- * not pure black, because pure black on paper reads like a terminal capture
- * rather than a printed page. The accent is a single proof-mark vermilion: the
- * only saturated colour on the site, used for punctuation, never for large
- * fills.
+ * The ground is a cool, faintly green-grey technical paper (#DFE3DC) instead of
+ * the warm cream that every AI-built portfolio reaches for: it reads as a
+ * drafting sheet rather than a cosmetic "tasteful" surface. Text is graphite,
+ * not pure black — pure black on paper looks like a terminal capture. The one
+ * saturated colour is a markup vermilion reserved for punctuation: the role
+ * line, the active nav rule, the status mark, row hairlines, link underlines.
+ * Warm accent on a cool ground is the tension that makes the page feel authored.
  *
- * Contrast measured (WCAG 2.1, sRGB):
- *   ink/canvas 13.34 · ink-muted/canvas 6.36 · ink-faint/canvas 4.97
- *   accent/canvas 5.63 · on-accent/accent 5.63 · control border 3.08
- * The dark theme is designed on its own warm charcoal (not an inversion) and
- * every pair is AA there too.
+ * Contrast measured (WCAG 2.1, sRGB, computed from these hex values):
+ *   light: ink/canvas 13.75 · ink-muted/canvas 6.62 · ink-faint/canvas 5.18
+ *          accent/canvas 5.13 · on-accent/accent 6.08 · control border 3.83
+ *   dark : ink/canvas 15.09 · ink-muted/canvas 7.51 · ink-faint/canvas 6.00
+ *          accent/canvas 7.54 · on-accent/accent 7.54 · control border 4.04
+ * Every text pair clears AA 4.5:1; control borders clear 1.4.11 (3:1). The dark
+ * theme is composed on its own cool graphite rather than inverted from light.
  */
 :root {
-  --canvas: #f1efeb;
-  --surface: #f7f5f1;
-  --surface-raised: #e9e5dc;
-  --line: #d9d3c7;
-  --line-strong: #c3bcac;
+  --canvas: #dfe3dc;
+  --surface: #e9ece6;
+  --surface-raised: #d1d6cf;
+  --line: #c2c8c0;
+  --line-strong: #a6aea4;
   /* Control borders need 3:1 against the surface they sit on (WCAG 1.4.11);
      --line is decorative only. */
-  --line-control: #8e8877;
-  --ink: #252526;
-  --ink-muted: #5a564d;
-  --ink-faint: #6b665b;
-  --accent: #a63a1e;
-  --accent-hover: #8c2f16;
-  --accent-soft: #efdfd6;
-  --on-accent: #f7f5f1;
+  --line-control: #69726a;
+  --ink: #14181a;
+  --ink-muted: #454e4a;
+  --ink-faint: #545e59;
+  --accent: #a83313;
+  --accent-hover: #8a2609;
+  --accent-soft: #e9dad2;
+  --on-accent: #f3f5f2;
 }
 
 .dark {
-  --canvas: #14120f;
-  --surface: #1b1916;
-  --surface-raised: #232019;
-  --line: #2f2b24;
-  --line-strong: #443f35;
-  --line-control: #6e685b;
-  --ink: #ede8dc;
-  --ink-muted: #a9a296;
-  --ink-faint: #948d80;
-  --accent: #e58a63;
-  --accent-hover: #f0a07c;
-  --accent-soft: #35241c;
-  --on-accent: #14120f;
+  --canvas: #101413;
+  --surface: #171c1b;
+  --surface-raised: #1f2523;
+  --line: #2a3230;
+  --line-strong: #3e4845;
+  --line-control: #6c7873;
+  --ink: #e4e9e4;
+  --ink-muted: #9ea7a1;
+  --ink-faint: #8b958f;
+  --accent: #ef8b5f;
+  --accent-hover: #f7a67f;
+  --accent-soft: #2b201a;
+  --on-accent: #101413;
 }
 
 @layer base {
@@ -228,25 +241,57 @@
 
   /* ---------- type scale ------------------------------------------------ */
 
+  /*
+   * Bodoni Moda is a didone: hairline serifs need room, so display leading sits
+   * just below 1 and the tracking is opened slightly relative to a grotesk.
+   * Weights stay at 400 — the contrast does the work, not boldness.
+   */
   .t-display {
     font-family: var(--font-serif);
     font-size: clamp(3.1rem, 10.6vw, 7.4rem);
-    line-height: 0.88;
-    letter-spacing: -0.028em;
+    line-height: 0.94;
+    letter-spacing: -0.024em;
   }
 
   .t-title {
     font-family: var(--font-serif);
     font-size: clamp(2.1rem, 5.6vw, 4.2rem);
-    line-height: 0.96;
-    letter-spacing: -0.022em;
+    line-height: 1;
+    letter-spacing: -0.018em;
   }
 
   .t-heading {
     font-family: var(--font-serif);
     font-size: clamp(1.6rem, 3vw, 2.3rem);
-    line-height: 1.05;
-    letter-spacing: -0.015em;
+    line-height: 1.08;
+    letter-spacing: -0.012em;
+  }
+
+  /*
+   * Hero display block, sized by its own column instead of the viewport.
+   *
+   * The longest line is "frontend engineer", and the column is 8 of 12 on
+   * desktop but full width on a phone. A viewport clamp cannot satisfy both —
+   * it either wraps the role line on desktop or blows past the column on a
+   * phone — so the block measures its container (12.3cqi is the measure of
+   * that line, tracked). The vw clamp stays as the fallback for browsers
+   * without container queries.
+   */
+  .hero-type {
+    container-type: inline-size;
+  }
+
+  .t-display-hero {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 7.2vw, 6.6rem);
+    line-height: 0.96;
+    letter-spacing: -0.024em;
+  }
+
+  @container (min-width: 1px) {
+    .t-display-hero {
+      font-size: 12.3cqi;
+    }
   }
 
   .t-lead {
@@ -262,20 +307,26 @@
     color: var(--ink-muted);
   }
 
-  /* Metadata / labels: mono, small-caps rhythm. */
+  /*
+   * Labels. Tracked uppercase in the text face, not monospace: the mono label
+   * was the "technical costume" reflex, and at 11px a grotesk tracks tighter
+   * and reads warmer. Weight 500 keeps it crisp against the paper.
+   */
   .t-meta {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    font-weight: 400;
-    letter-spacing: 0.16em;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
     color: var(--ink-faint);
   }
 
+  /* Figures: tabular so columns and a ticking clock never shift. */
   .t-num {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.75rem;
-    letter-spacing: 0.08em;
+    font-weight: 500;
+    letter-spacing: 0.04em;
     color: var(--ink-faint);
     font-variant-numeric: tabular-nums;
   }
@@ -363,8 +414,8 @@
    * must paint on the first frame and animate without waiting for hydration.
    * Each character is a real inline-block span emitted at build time — the
    * copy is static, so there is no hydration mismatch and no runtime splitting.
-   * No mask/clip on these lines: Instrument Serif descenders sit outside the
-   * 0.88 line box, and `overflow: hidden` would cut the feet off every "y".
+   * No mask/clip on these lines: Bodoni Moda's descenders sit outside the
+   * sub-1 line box, and `overflow: hidden` would cut the feet off every "y".
    */
   .hero-line {
     display: block;
@@ -498,13 +549,17 @@
     top: 1rem;
   }
 
-  .status-dot {
+  /*
+   * Availability mark: a static printed bullet, deliberately not a pulsing
+   * "live" pill. The state is carried by the sentence beside it, not by motion
+   * and not by colour alone.
+   */
+  .status-mark {
     display: inline-block;
     width: 0.4rem;
     height: 0.4rem;
     border-radius: 999px;
     background-color: var(--accent);
-    animation: pulse 2.8s ease-out infinite;
   }
 
   /* Mobile menu and theme icon: CSS entrance, no client animation library. */
@@ -538,20 +593,6 @@
   to {
     opacity: 1;
     transform: none;
-  }
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 45%, transparent);
-  }
-
-  70% {
-    box-shadow: 0 0 0 6px color-mix(in oklab, var(--accent) 0%, transparent);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 0%, transparent);
   }
 }
 

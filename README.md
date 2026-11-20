@@ -20,7 +20,7 @@ and is validated at build time.
 | Language  | TypeScript 6, `strict` + `noUncheckedIndexedAccess`                            |
 | Styles    | Tailwind CSS v4 via `@tailwindcss/vite`, semantic tokens in `src/styles.css`   |
 | Motion    | GSAP 3.15 + ScrollTrigger + SplitText (lazy) · Lenis · CSS for entrances       |
-| Fonts     | Instrument Serif · Geist · Geist Mono — self-hosted, latin subset (96KB total) |
+| Fonts     | Bodoni Moda · Familjen Grotesk — self-hosted, latin subset (93KB total)        |
 | Build     | Vite 8                                                                         |
 | Server    | `server.mjs` (srvx) serving `dist/client` + the Start fetch handler            |
 
@@ -86,9 +86,10 @@ and the `about` paragraphs, so copy edits never touch a component.
 
 ## Design and engineering notes
 
-- **One palette, one accent.** Warm paper (`#f1efeb`), near-black ink, a single
-  vermilion accent. All text pairs pass WCAG AA in both themes; the numbers are
-  in `docs/DESIGN.md` and were computed from the hex values, not eyeballed.
+- **One palette, one accent.** Cool mineral paper (`#dfe3dc`), graphite ink, a
+  single vermilion accent. All text pairs pass WCAG AA in both themes; the
+  numbers are in `docs/DESIGN.md` and were computed from the hex values, not
+  eyeballed.
 - **One motion engine.** CSS for entrances (the H1 is the LCP element and must
   paint before hydration), GSAP + ScrollTrigger for scroll storytelling, one
   rAF loop for the tilt. Motion (framer-motion) was removed in W2: it was 49KB

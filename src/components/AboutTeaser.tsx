@@ -4,9 +4,13 @@ import { ArrowRightIcon } from './Icons'
 import SplitReveal from './motion/SplitReveal'
 
 /**
- * About teaser: the one paragraph on the page that builds line by line as you
+ * About teaser: the one block on the page that builds line by line as you
  * scroll (the scroll-storytelling move from the reference sites), sized at
  * heading scale so the type itself is the layout.
+ *
+ * The lede *is* the section heading. A tiny "About" label sat in the margin
+ * here in W2; the words carried no meaning the copy does not already carry, so
+ * the heading does the work and the block keeps the offset rhythm instead.
  */
 export default function AboutTeaser() {
   const first = site.about.paragraphs[0]
@@ -14,16 +18,10 @@ export default function AboutTeaser() {
   return (
     <section aria-labelledby="about-heading" className="shell mt-24 sm:mt-32">
       <div className="grid gap-8 lg:grid-cols-12 lg:gap-x-12">
-        <div className="lg:col-span-3">
-          <h2 id="about-heading" className="t-meta m-0">
-            (03) About
-          </h2>
-        </div>
-
-        <div className="lg:col-span-9">
-          <p className="t-heading max-w-[26ch] text-ink">
+        <div className="lg:col-span-9 lg:col-start-4">
+          <h2 id="about-heading" className="t-heading max-w-[26ch] text-ink">
             <SplitReveal mode="lines">{site.about.lede}</SplitReveal>
-          </p>
+          </h2>
 
           {first ? (
             <p className="t-body mt-6 mb-0 max-w-[58ch] text-[0.98rem]">

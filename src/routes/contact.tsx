@@ -53,8 +53,7 @@ function ContactPage() {
   return (
     <main id="main-content">
       <header className="shell pt-16 sm:pt-24">
-        <p className="t-meta m-0">Contact</p>
-        <h1 className="t-display mt-5 max-w-[13ch] text-ink">
+        <h1 className="t-display max-w-[13ch] text-ink">
           <SplitReveal mode="chars">Say what you are building</SplitReveal>
         </h1>
         <p className="t-lead mt-7 max-w-[48ch]">

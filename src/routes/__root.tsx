@@ -80,14 +80,21 @@ export const Route = createRootRoute({
       { rel: 'manifest', href: '/manifest.webmanifest' },
       {
         rel: 'preload',
-        href: '/fonts/instrument-serif-normal.woff2',
+        href: '/fonts/bodoni-moda-latin.woff2',
         as: 'font',
         type: 'font/woff2',
         crossOrigin: 'anonymous',
       },
       {
         rel: 'preload',
-        href: '/fonts/geist-normal.woff2',
+        href: '/fonts/bodoni-moda-italic-latin.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossOrigin: 'anonymous',
+      },
+      {
+        rel: 'preload',
+        href: '/fonts/familjen-grotesk-latin.woff2',
         as: 'font',
         type: 'font/woff2',
         crossOrigin: 'anonymous',
@@ -159,10 +166,9 @@ function NotFound() {
       id="main-content"
       className="shell flex min-h-[70svh] flex-col justify-center py-24"
     >
-      <p className="t-meta m-0">Error 404</p>
-      <h1 className="t-display mt-5 max-w-[12ch] text-ink">
+      <h1 className="t-display max-w-[12ch] text-ink">
         404
-        <span className="block text-accent italic">nothing here</span>
+        <span className="block text-accent">nothing here</span>
       </h1>
       <p className="t-body mt-6 mb-0 max-w-[42ch]">
         The link is out of date, or the page moved. The work is still where it

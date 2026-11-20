@@ -31,13 +31,16 @@ See the `popular-web-designs` skill (`templates/`) for token-level breakdowns.
 
 The system that came out of these is documented in `docs/DESIGN.md`.
 
-1. **Type pairing** — serif display, not a second grotesk. **Instrument Serif**
-   (400 + italic) for display, **Geist** for text, **Geist Mono** for data. All
-   self-hosted as latin subsets. A grotesk-only hero reads as "SaaS landing
+1. **Type pairing** — serif display, not a second grotesk. W2 shipped
+   **Instrument Serif** (400 + italic) for display, **Geist** for text and
+   **Geist Mono** for data; W3 replaced all three with **Bodoni Moda** (display)
+   and **Familjen Grotesk** (text, labels, figures), because the first two had
+   become the reflex of AI-built portfolios and the third was mono-as-costume.
+   Still a serif-display pairing: a grotesk-only hero reads as "SaaS landing
    page"; the serif is what makes the page read as editorial.
-2. **Accent** — indigo replaced by **vermilion `#a63a1e`** (dark: `#e58a63`).
+2. **Accent** — indigo replaced by **vermilion** (`#a83313`, dark: `#ef8b5f`).
    It is the only saturated colour on the site and appears as punctuation only.
-   Contrast re-checked: 5.63:1 on paper, 7.25:1 on charcoal.
+   Contrast re-checked: 5.13:1 on paper, 7.54:1 on graphite.
 3. **Project density** — no cards, no thumbnails. The work is a **typographic
    index**: number / name in display serif / tagline / year + stack / arrow.
    Card grids are the "dev portfolio template" tell the reference research

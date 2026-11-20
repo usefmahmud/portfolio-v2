@@ -17,17 +17,16 @@ export default function Playbook() {
     >
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-12">
         <div className="lg:col-span-4">
-          <p className="t-meta m-0">(02) Playbook</p>
-          <h2 id="playbook-heading" className="t-title mt-3 text-ink">
-            <SplitReveal>How I work</SplitReveal>
+          <h2 id="playbook-heading" className="t-title text-ink">
+            <SplitReveal>How I work, in four rules</SplitReveal>
           </h2>
           <p className="t-body mt-6 max-w-[32ch] text-[0.95rem]">
-            Four rules I keep coming back to. Each one is behind a project on
-            this page, so you can check the claim.
+            Each rule is behind a project on this page, so you can check the
+            claim.
           </p>
         </div>
 
-        <ol className="m-0 grid list-none gap-x-10 p-0 sm:grid-cols-2 lg:col-span-8">
+        <ol className="m-0 grid list-none gap-x-10 border-b border-line p-0 sm:grid-cols-2 lg:col-span-8">
           {site.playbook.map((step, position) => (
             <li key={step.title} className="border-t border-line py-6">
               <Reveal delay={position * 0.06}>

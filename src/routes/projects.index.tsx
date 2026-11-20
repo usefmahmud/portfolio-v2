@@ -21,24 +21,21 @@ function ProjectsPage() {
   return (
     <main id="main-content">
       <header className="shell pt-16 sm:pt-24">
-        <p className="t-meta m-0">Work / {projectYearsLabel()}</p>
-        <h1 className="t-display mt-5 max-w-[13ch] text-ink">
+        <h1 className="t-display max-w-[13ch] text-ink">
           {projects.length} projects,{' '}
-          <span className="text-accent italic">all shipped</span>
+          <span className="text-accent">all shipped</span>
         </h1>
         <p className="t-lead mt-7 max-w-[50ch]">
-          Developer tools, a chat platform and a few experiments where the
-          interface needed something behind it. Each entry says what I actually
-          built, not just the stack.
+          Developer tools, a chat platform and a few experiments,{' '}
+          {projectYearsLabel()}. Each entry says what I actually built, not just
+          the stack.
         </p>
       </header>
 
       <WorkIndex
         items={projects}
         total={projects.length}
-        index="01"
-        eyebrow="Archive"
-        title="The full index"
+        title="The full archive"
         showAll={false}
       />
 

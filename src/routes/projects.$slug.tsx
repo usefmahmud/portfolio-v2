@@ -63,7 +63,7 @@ function ProjectDetail() {
           <div className="lg:col-span-8">
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
               <span className="t-meta inline-flex items-center gap-2 text-ink">
-                <span aria-hidden="true" className="status-dot" />
+                <span aria-hidden="true" className="status-mark" />
                 {STATUS_LABEL[project.status]}
               </span>
               <span className="t-meta">{project.year}</span>
@@ -82,19 +82,19 @@ function ProjectDetail() {
               <dl className="m-0 border border-line bg-surface">
                 <div className="flex items-baseline justify-between gap-4 border-b border-line px-4 py-3">
                   <dt className="t-meta">Shipped</dt>
-                  <dd className="m-0 font-mono text-sm text-ink">
+                  <dd className="m-0 text-sm tabular-nums text-ink">
                     {project.year}
                   </dd>
                 </div>
                 <div className="flex items-baseline justify-between gap-4 border-b border-line px-4 py-3">
                   <dt className="t-meta">Status</dt>
-                  <dd className="m-0 font-mono text-sm text-ink">
+                  <dd className="m-0 text-sm tabular-nums text-ink">
                     {STATUS_LABEL[project.status].toLowerCase()}
                   </dd>
                 </div>
                 <div className="flex items-baseline justify-between gap-4 px-4 py-3">
                   <dt className="t-meta">Layer</dt>
-                  <dd className="m-0 text-right font-mono text-sm text-ink">
+                  <dd className="m-0 text-right text-sm tabular-nums text-ink">
                     {project.stack[0] ?? '—'}
                   </dd>
                 </div>
@@ -132,7 +132,7 @@ function ProjectDetail() {
               {project.stack.map((tech) => (
                 <li
                   key={tech}
-                  className="border-t border-line py-2 font-mono text-sm text-ink last:border-b"
+                  className="border-t border-line py-2 text-sm tabular-nums text-ink last:border-b"
                 >
                   {tech}
                 </li>

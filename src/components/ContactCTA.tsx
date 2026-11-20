@@ -2,15 +2,13 @@ import { site } from '../content'
 import { ArrowUpRightIcon } from './Icons'
 import SplitReveal from './motion/SplitReveal'
 
-export default function ContactCTA({ index = '04' }: { index?: string }) {
+export default function ContactCTA() {
   return (
     <section aria-labelledby="contact-heading" className="shell mt-24 sm:mt-32">
       <div className="border-t border-line pt-8">
-        <p className="t-meta m-0">({index}) Contact</p>
-
         <h2
           id="contact-heading"
-          className="t-display mt-4 max-w-[14ch] text-ink"
+          className="t-display max-w-[14ch] text-ink"
         >
           <SplitReveal mode="chars">Got something to build?</SplitReveal>
         </h2>

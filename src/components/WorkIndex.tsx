@@ -7,9 +7,6 @@ import SplitReveal from './motion/SplitReveal'
 type WorkIndexProps = {
   items: readonly Project[]
   total: number
-  /** Section number in the page's running order. */
-  index?: string
-  eyebrow?: string
   title?: string
   /** Hide the "all projects" link when this list *is* the full archive. */
   showAll?: boolean
@@ -22,13 +19,13 @@ type WorkIndexProps = {
  * draws a hairline across the top of the row and colours the title with the
  * single accent — the whole row is still one link, still a 44px+ target, still
  * keyboard reachable, and nothing moves enough to shift layout.
+ *
+ * The heading carries its own label; there is no eyebrow line above it.
  */
 export default function WorkIndex({
   items,
   total,
-  index = '01',
-  eyebrow = 'Selected work',
-  title = 'Four things worth opening',
+  title = 'Three selected things worth opening',
   showAll = true,
 }: WorkIndexProps) {
   return (
@@ -38,14 +35,9 @@ export default function WorkIndex({
       className="shell mt-24 scroll-mt-28 sm:mt-32"
     >
       <div className="flex items-end justify-between gap-6">
-        <div>
-          <p className="t-meta m-0">
-            ({index}) {eyebrow}
-          </p>
-          <h2 id="work-heading" className="t-title mt-3 max-w-[16ch] text-ink">
-            <SplitReveal>{title}</SplitReveal>
-          </h2>
-        </div>
+        <h2 id="work-heading" className="t-title max-w-[16ch] text-ink">
+          <SplitReveal>{title}</SplitReveal>
+        </h2>
         {showAll ? (
           <Link
             to="/projects"

@@ -43,8 +43,7 @@ function AboutPage() {
   return (
     <main id="main-content">
       <header className="shell pt-16 sm:pt-24">
-        <p className="t-meta m-0">About</p>
-        <h1 className="t-display mt-5 max-w-[14ch] text-ink">
+        <h1 className="t-display max-w-[14ch] text-ink">
           <SplitReveal mode="chars">
             {site.shortName.toLowerCase()}, working at the seam
           </SplitReveal>

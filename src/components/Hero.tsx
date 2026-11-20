@@ -50,7 +50,7 @@ export default function Hero() {
   return (
     <section className="shell flex flex-col justify-between pt-[6.5rem] pb-8 sm:pt-[8rem] lg:min-h-[88svh]">
       <div className="grid gap-y-12 lg:grid-cols-12 lg:gap-x-10">
-        <div className="lg:col-span-8">
+        <div className="hero-type lg:col-span-8">
           <div
             className="hero-fade flex items-center gap-3"
             style={{ '--d': '60ms' } as CSSProperties}
@@ -62,7 +62,7 @@ export default function Hero() {
 
           <h1
             aria-label={`${site.name} — ${site.role.toLowerCase()}`}
-            className="t-display mt-7 text-ink"
+            className="t-display-hero mt-7 text-ink"
           >
             <span className="hero-line" aria-hidden="true">
               <Chars text="yousef" />
@@ -99,11 +99,11 @@ export default function Hero() {
         </div>
 
         <aside className="lg:col-span-4 lg:border-l lg:border-line lg:pl-8">
-          <p className="t-meta m-0">Currently</p>
+          <p className="t-meta m-0">Availability</p>
           <p className="mt-3 mb-0 flex items-start gap-2.5 text-[0.95rem] leading-snug text-ink">
             <span
               aria-hidden="true"
-              className="status-dot mt-[0.45rem] shrink-0"
+              className="status-mark mt-[0.45rem] shrink-0"
             />
             {site.availability}
           </p>
@@ -136,13 +136,13 @@ export default function Hero() {
           <dl className="mt-6 mb-0 grid gap-3 border-t border-line pt-5">
             <div className="flex items-baseline justify-between gap-4">
               <dt className="t-meta">Cairo</dt>
-              <dd className="m-0 font-mono text-sm text-ink">
+              <dd className="m-0 text-sm tabular-nums text-ink">
                 <Clock />
               </dd>
             </div>
             <div className="flex items-baseline justify-between gap-4">
               <dt className="t-meta">Repos</dt>
-              <dd className="m-0 font-mono text-sm">
+              <dd className="m-0 text-sm tabular-nums">
                 <a
                   href={site.github.url}
                   target="_blank"

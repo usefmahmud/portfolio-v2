@@ -29,12 +29,11 @@ function HomePage() {
       <WorkIndex
         items={featuredProjects}
         total={projects.length}
-        index="01"
-        title="Three things worth opening"
+        title="Three selected things worth opening"
       />
       <Playbook />
       <AboutTeaser />
-      <ContactCTA index="04" />
+      <ContactCTA />
     </main>
   )
 }

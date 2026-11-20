@@ -1,4 +1,4 @@
-# Design system — W2
+# Design system — W3
 
 The visual language for the site. Everything here is implemented in
 `src/styles.css` (tokens) plus components that read tokens only — no raw hex in
@@ -10,79 +10,112 @@ the system that came out of it.
 
 ## 1. Direction
 
-One sentence: **a printed page that happens to scroll** — warm paper, one
-vermilion accent used like a proof-mark, display serif for scale, grotesk for
-reading, mono for anything that is data.
+One sentence: **a drafting sheet that happens to scroll** — cool mineral paper,
+graphite ink, a single markup vermilion used like a proof-mark, a didone for
+scale, a grotesk for reading and for every label.
 
 Anti-direction (explicitly rejected): dark "developer" gradient, glassmorphism,
 bento grid, floating cards with soft shadows, avatar hero, skill percentage
-bars, emoji icons.
+bars, emoji icons, eyebrow labels above headings, pulsing status dots.
+
+W3 was a pass against the Impeccable standard (v4.10.0). It replaced the two
+reflex choices of W2 — a cream ground and the display serif every AI-built
+portfolio loads — and removed the decorative devices the standard bans outright
+(see §9). Nothing structural changed: same routes, same content, same motion
+engine.
 
 ## 2. Colour
 
+The ground is a **cool, faintly green-grey technical paper** (`#dfe3dc`), not the
+warm cream that reads as the "tasteful" default. Text is graphite, not pure
+black — pure black on paper looks like a terminal capture. The one saturated
+colour is a **markup vermilion** held over from W2: warm accent on a cool ground
+is the tension that makes the page feel authored. It is punctuation only — the
+role line in the hero, the active nav rule, the status mark, the row hairline on
+hover, link underlines — never a large fill.
+
 | Token              | Light     | Dark      | Role                        |
 | ------------------ | --------- | --------- | --------------------------- |
-| `--canvas`         | `#f1efeb` | `#14120f` | page paper / warm charcoal  |
-| `--surface`        | `#f7f5f1` | `#1b1916` | inset panels (spec cards)   |
-| `--surface-raised` | `#e9e5dc` | `#232019` | hover fills                 |
-| `--line`           | `#d9d3c7` | `#2f2b24` | decorative hairlines        |
-| `--line-strong`    | `#c3bcac` | `#443f35` | section rules               |
-| `--line-control`   | `#8e8877` | `#6e685b` | control borders (needs 3:1) |
-| `--ink`            | `#252526` | `#ede8dc` | body and display text       |
-| `--ink-muted`      | `#5a564d` | `#a9a296` | secondary copy              |
-| `--ink-faint`      | `#6b665b` | `#948d80` | metadata only               |
-| `--accent`         | `#a63a1e` | `#e58a63` | the single accent           |
-| `--on-accent`      | `#f7f5f1` | `#14120f` | text on solid accent        |
+| `--canvas`         | `#dfe3dc` | `#101413` | page paper / cool graphite  |
+| `--surface`        | `#e9ece6` | `#171c1b` | inset panels (spec cards)   |
+| `--surface-raised` | `#d1d6cf` | `#1f2523` | hover fills                 |
+| `--line`           | `#c2c8c0` | `#2a3230` | decorative hairlines        |
+| `--line-strong`    | `#a6aea4` | `#3e4845` | section rules               |
+| `--line-control`   | `#69726a` | `#6c7873` | control borders (needs 3:1) |
+| `--ink`            | `#14181a` | `#e4e9e4` | body and display text       |
+| `--ink-muted`      | `#454e4a` | `#9ea7a1` | secondary copy              |
+| `--ink-faint`      | `#545e59` | `#8b958f` | metadata only               |
+| `--accent`         | `#a83313` | `#ef8b5f` | the single accent           |
+| `--accent-hover`   | `#8a2609` | `#f7a67f` | accent on hover             |
+| `--accent-soft`    | `#e9dad2` | `#2b201a` | accent tint                 |
+| `--on-accent`      | `#f3f5f2` | `#101413` | text on solid accent        |
 
 Measured contrast (WCAG 2.1, sRGB, computed from the hex values above):
 
 | Pair                    | Light | Dark  |
 | ----------------------- | ----- | ----- |
-| ink / canvas            | 13.34 | 15.29 |
-| ink-muted / canvas      | 6.36  | 7.39  |
-| ink-faint / canvas      | 4.97  | 5.68  |
-| accent / canvas         | 5.63  | 7.25  |
-| on-accent / accent      | 5.63  | 9.52  |
-| control border / canvas | 3.08  | 3.38  |
+| ink / canvas            | 13.75 | 15.09 |
+| ink-muted / canvas      | 6.62  | 7.51  |
+| ink-faint / canvas      | 5.18  | 6.00  |
+| accent / canvas         | 5.13  | 7.54  |
+| on-accent / accent      | 6.08  | 7.54  |
+| control border / canvas | 3.83  | 4.04  |
 
-All text pairs pass AA (4.5:1); control borders pass 1.4.11 (3:1). The dark
-theme is designed separately on a warm charcoal — not an inverted light theme —
-because inverting `#252526` on `#f1efeb` produces a cold, blue-shifted result.
-
-Why one accent: the reference research is blunt about this — a portfolio with
-three accent colours reads like a template. Vermilion is used only for
-punctuation: the role line in the hero, the active nav underline, the status
-dot, the row hairline on hover, link underlines.
+Every text pair clears AA (4.5:1) and control borders clear 1.4.11 (3:1) in both
+themes — re-measured in the browser after the palette change, on all five
+routes, in light and dark. The dark theme is composed on its own cool graphite,
+not inverted from light.
 
 ## 3. Type
 
-| Role    | Family                        | Loading                                |
-| ------- | ----------------------------- | -------------------------------------- |
-| Display | Instrument Serif 400 + italic | self-hosted, latin subset, 21KB + 22KB |
-| Text    | Geist 300–700 (variable)      | self-hosted, latin subset, 29KB        |
-| Data    | Geist Mono 400–500 (variable) | self-hosted, latin subset, 23KB        |
+| Role    | Family                          | Loading                                |
+| ------- | ------------------------------- | -------------------------------------- |
+| Display | Bodoni Moda 400 + true italic   | self-hosted, latin subset, 26KB + 30KB |
+| Text    | Familjen Grotesk 400–700 + italic | self-hosted, latin subset, 19KB + 20KB |
 
-Self-hosted rather than a Google Fonts stylesheet: no third-party DNS/TLS hop
-on the critical path, no second stylesheet, and the subset is chosen here. The
-two faces used above the fold are `<link rel="preload">`ed; all four declare
-`font-display: swap` and a latin `unicode-range`.
+Two families, both self-hosted latin subsets, `<link rel="preload">`ed for the
+faces used above the fold: **93KB of type** total, no third-party DNS/TLS hop,
+no second stylesheet, `font-display: swap` and a latin `unicode-range` on every
+file.
 
-Scale (all `clamp()`, so there is no breakpoint jump in type size):
+Why these two: the W2 display serif has become the reflex of every AI-built
+portfolio, and the text face's family was on the same list. Bodoni Moda is a
+modern didone — engraved hairline detail that only pays off at display size and
+a genuine italic — and Familjen Grotesk is a Norwegian grotesk with enough
+character to hold body copy and 11px labels without becoming a costume. No
+monospace family ships at all: labels and figures are set in the grotesk with
+tabular numerals, because mono for labels was the "technical" reflex the
+standard calls out. Only the `<kbd>` keycap borrows the system monospace.
 
-| Class        | Size                            | Use                    |
-| ------------ | ------------------------------- | ---------------------- |
-| `.t-display` | `clamp(3.1rem, 10.6vw, 7.4rem)` | hero, page titles, 404 |
-| `.t-title`   | `clamp(2.1rem, 5.6vw, 4.2rem)`  | section headings       |
-| `.t-heading` | `clamp(1.6rem, 3vw, 2.3rem)`    | list headings, dialog  |
-| `.t-lead`    | `clamp(1.06rem, 1.5vw, 1.3rem)` | standfirst             |
-| `.t-body`    | `1rem / 1.68`                   | prose                  |
-| `.t-meta`    | `0.6875rem`, `0.16em` tracking  | labels, nav, metadata  |
-| `.t-num`     | `0.75rem`, tabular figures      | index numbers          |
+Scale:
 
-Display type is set at `line-height: 0.88` and `letter-spacing: -0.028em`; body
-copy is never tracked in. The hero is deliberately **unmasked** — Instrument
-Serif's descenders sit outside an 0.88 line box and `overflow: hidden` would cut
-the tail off every "y".
+| Class           | Size                            | Use                    |
+| --------------- | ------------------------------- | ---------------------- |
+| `.t-display`    | `clamp(3.1rem, 10.6vw, 7.4rem)` | page titles, 404       |
+| `.t-display-hero` | `12.3cqi` (clamped fallback)  | hero only              |
+| `.t-title`      | `clamp(2.1rem, 5.6vw, 4.2rem)`  | section headings       |
+| `.t-heading`    | `clamp(1.6rem, 3vw, 2.3rem)`    | list headings, dialog  |
+| `.t-lead`       | `clamp(1.06rem, 1.5vw, 1.3rem)` | standfirst             |
+| `.t-body`       | `1rem / 1.68`                   | prose                  |
+| `.t-meta`       | `0.7rem`, `500`, `0.13em`       | labels, nav, metadata  |
+| `.t-num`        | `0.75rem`, tabular figures      | index numbers, time    |
+
+Display leading stays sub-1 (0.94–1) and close tracking, because a didone wants
+tight setting; body copy is never tracked in. The hero is deliberately
+**unmasked** — Bodoni Moda's descenders sit outside the line box and
+`overflow: hidden` would cut the tail off every "y".
+
+**Hero sizing is container-based, not viewport-based.** The longest hero line is
+"frontend engineer"; the column is 8 of 12 on desktop but full width on a phone,
+so a single `vw` clamp either wraps the role line on desktop or overflows the
+column on a phone. `.t-display-hero` measures its own column with `cqi`
+(`12.3cqi`, the measure of that line, tracked) and falls back to a `vw` clamp
+where container queries are unavailable. Verified fitting at 320 / 360 / 390 /
+768 / 1024 / 1280 / 1440 / 1920.
+
+Italic display is used once, on the hero's "engineer" — the signature moment.
+Elsewhere display headings are set roman: an oversized italic serif headline is
+itself an AI-landing-page tell, and the standard flags it.
 
 ## 4. Motion
 
@@ -113,6 +146,8 @@ Rules that were followed, not just stated:
   no tilt, hero animations cancelled. Verified in-browser (`.split-char` count
   0, `window.__lenis` undefined, every block at `opacity: 1`).
 - **Only `transform` and `opacity` animate.** No width/height/top/left tweens.
+- **Nothing pulses.** The availability indicator is a static mark; motion is
+  reserved for entrances and pointer feedback, never to fake liveness.
 - **One signature moment**: the hero's per-character rise into the name, ending
   on the accent-italic role line. Everything else is quiet so that one moment
   reads as intentional.
@@ -124,24 +159,27 @@ Rules that were followed, not just stated:
 - 12-column grids on `lg`; work list is a grid row (number / title / tagline /
   year+stack / arrow), not a card grid — cards are the template tell.
 - Hairlines (1px `--line`) separate blocks; there are no box shadows anywhere.
-- Section numbering `(01) … (04)` gives the page a running order and makes the
-  scroll feel authored.
+- **No eyebrow labels and no section numbers.** Each heading carries its own
+  label ("Three selected things worth opening", "How I work, in four rules",
+  "The full archive"); where a kicker held a real fact (the project-year range
+  on the archive page) it moved into the sentence below the heading.
 
 ## 6. Accessibility
 
-- Skip link, `main#main-content`, one `h1` per page, no heading-level jumps
-  (verified per route: `/` = `1,2,2,3,3,3,3,2,2,2`, others `1,2,2…`).
+- Skip link, `main#main-content`, one `h1` per page, no heading-level jumps.
 - Visible focus ring: 2px accent, 3px offset, on every interactive element.
-- Targets: all links/buttons ≥ 24×24 (site-wide probe returns none smaller);
-  primary controls are 40–44px.
+- Targets: all links/buttons ≥ 24×24; primary controls are 40–44px.
 - The custom cursor never hides the native one and is `aria-hidden`,
   `pointer-events: none`.
 - The easter-egg panel is a native `<dialog>` (focus trap, Escape, inert
   background), never fires while typing in a field, and its content is real.
 - Theme: three-state toggle (light / dark / system) persisted in
   `localStorage`, applied by a pre-paint script so there is no flash.
-- Copy is plain language, no "click here" links, no colour-only meaning (status
-  is a dot **and** a word).
+- Copy is plain language, no "click here" links, no colour-only meaning: the
+  availability mark is a static glyph **and** a sentence, and project status is
+  a mark plus a word.
+- Contrast audited in the browser per route, per theme, against the element's
+  real background: no text below 4.5:1, no large text below 3:1.
 
 ## 7. Performance budget
 
@@ -149,7 +187,7 @@ Rules that were followed, not just stated:
 | ---------------------- | ------- | -------------------------------- |
 | Initial JS (gzip)      | < 180KB | 108KB                            |
 | CSS (gzip)             | < 20KB  | 6.7KB                            |
-| Fonts (all four files) | < 120KB | 96KB                             |
+| Fonts (all files)      | < 120KB | 93KB                             |
 | Images                 | 0       | 0 (one 72KB `og.png` for social) |
 | LCP (local, desktop)   | < 2.0s  | 0.34s                            |
 | CLS                    | = 0     | 0                                |
@@ -158,9 +196,11 @@ The site ships no photographs, illustrations or video: the type is the layout.
 The only raster asset in `public/` is `og.png`, which is never requested by a
 page load.
 
-## 8. Self-critique pass (what changed because of it)
+## 8. Self-critique pass
 
-Findings from rendering the built site — not from reading the code:
+Findings from rendering the built site — not from reading the code.
+
+W2:
 
 1. **Hero**: descenders were being clipped by a line mask → mask removed.
 2. **Work rows**: `2026 / TypeScript + Node.js` wrapped mid-stack in an 8.5rem
@@ -172,12 +212,30 @@ Findings from rendering the built site — not from reading the code:
    wrapped with a leading middle dot → two lines, right-aligned.
 5. **Canonical URL**: the root route's canonical overrode every child route's →
    canonical is now declared per route (and the 404 has none).
-6. **Target sizes**: the wordmark, "Selected work" cue and "All projects" link
-   were 18–23px tall → minimum 24px.
+6. **Target sizes**: the wordmark, the "selected work" cue and "All projects"
+   link were 18–23px tall → minimum 24px.
 7. **Motion weight**: the entry chunk was 161KB gzip with Motion in it →
-   Motion removed, one engine (GSAP + CSS), entry now ~112KB.
-8. **Hero right rail**: "currently / time / counts" read as metadata filler and
-   the first screen showed no work → the rail now leads with the most recent
-   featured project (name in display serif, year, one line, link to the case
-   page), the repo count links to GitHub, and the wordmark lost its duplicated
-   "Cairo, Egypt".
+   Motion removed, one engine (GSAP + CSS).
+8. **Hero right rail**: read as metadata filler and the first screen showed no
+   work → the rail now leads with the most recent featured project.
+
+W3 (against the Impeccable standard, verified with the detector on the built
+site, zero findings on all six routes):
+
+9. **Palette**: cream `#f1efeb` → cool mineral paper `#dfe3dc`, dark theme
+   recomposed on cool graphite. Contrast re-measured in the browser.
+10. **Type**: the over-used display serif and the over-used text family replaced
+    with Bodoni Moda + Familjen Grotesk; the mono family removed and its roles
+    (labels, figures, keycaps aside) moved to the grotesk.
+11. **Hero wrapping**: the new didone is wider than the old serif and wrapped
+    "frontend engineer" onto two lines at 1440 → the hero block sizes itself from
+    its column (`cqi`), so the role line holds one line from 320 to 1920.
+12. **Eyebrows removed**: `(01) Selected work`, `(02) Playbook`, `(03) About`,
+    `(04) Contact`, plus the `Work / 2021—2026`, `About`, `Contact` and
+    `Error 404` labels on the inner routes — every heading now carries its own
+    words.
+13. **Pulsing dot removed**: the availability mark is static and the state is in
+    the sentence next to it.
+14. **Footer ghost wordmark**: the name printed at 10% ink measured 1.2:1 —
+    invisible as text, decorative as a shape. Replaced by a legible closing
+    signature with a "back to top" link.
